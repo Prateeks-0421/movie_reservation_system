@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Movie | MovieHub</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body class="bg-light">
+
+    <%- include("partials/navbar") %>
+
+    <div class="container my-5">
+
+        <div class="row justify-content-center">
+
+            <div class="col-lg-8">
+
+                <div class="card shadow-lg border-0 rounded-4">
+
+                    <div class="card-header bg-warning text-dark text-center py-3 rounded-top-4">
+                        <h2 class="fw-bold mb-0">🎬 Add New Movie</h2>
+                    </div>
+
+                    <div class="card-body p-5">
+
+                        <% if(typeof error !== "undefined"){ %>
+
+                            <div class="alert alert-danger">
+                                <%= error %>
+                            </div>
+
+                        <% } %>
+
+                        <form action="/movies/add" method="POST" enctype="multipart/form-data">
+
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold">Movie Title</label>
+                                <input
+                                    type="text"
+                                    class="form-control form-control-lg"
+                                    name="title"
+                                    placeholder="Enter movie title"
+                                    required>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold">Description</label>
+
+                                <textarea
+                                    class="form-control"
+                                    rows="5"
+                                    name="description"
+                                    placeholder="Write movie description..."
+                                    required></textarea>
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-6 mb-4">
+
+                                    <label class="form-label fw-semibold">
+                                        Genre
+                                    </label>
+
+                                    <select
+                                        class="form-select"
+                                        name="genre"
+                                        required>
+
+                                        <option value="">Choose Genre</option>
+                                        <option>Action</option>
+                                        <option>Adventure</option>
+                                        <option>Comedy</option>
+                                        <option>Drama</option>
+                                        <option>Fantasy</option>
+                                        <option>Horror</option>
+                                        <option>Romance</option>
+                                        <option>Sci-Fi</option>
+                                        <option>Thriller</option>
+                                        <option>Animation</option>
+
+                                    </select>
+
+                                </div>
+
+                                <div class="col-md-6 mb-4">
+
+                                    <label class="form-label fw-semibold">
+                                        Duration (Minutes)
+                                    </label>
+
+                                    <input
+                                        type="number"
+                                        class="form-control"
+                                        name="duration"
+                                        placeholder="e.g. 165"
+                                        required>
+
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-6 mb-4">
+
+                                    <label class="form-label fw-semibold">
+                                        Language
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        name="language"
+                                        placeholder="Hindi / English"
+                                        required>
+
+                                </div>
+
+                                <div class="col-md-6 mb-4">
+
+                                    <label class="form-label fw-semibold">
+                                        Release Date
+                                    </label>
+
+                                    <input
+                                        type="date"
+                                        class="form-control"
+                                        name="releasedate"
+                                        required>
+
+                                </div>
+
+                            </div>
+
+                        <div class="mb-4">
+                      <label class="form-label fw-semibold">Movie Poster</label>
+
+                          <input
+                        type="file"
+                       class="form-control"
+                      name="posterurl"
+                       accept="image/*"
+                          required>
+                            </div>
+
+                            <div class="d-grid">
+
+                                <button type="submit"
+                                    class="btn btn-warning btn-lg fw-bold">
+
+                                    ➕ Add Movie
+
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

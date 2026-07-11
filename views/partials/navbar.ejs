@@ -1,0 +1,112 @@
+<nav class="navbar navbar-expand-lg navbar-dark shadow-sm py-3"
+     style="background-color:#222831;">
+  <div class="container">
+
+    <a class="navbar-brand fw-bold fs-4 text-warning" href="/">
+      🎥 MovieHub
+    </a>
+
+    <button class="navbar-toggler border-0" type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav">
+
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+
+      <ul class="navbar-nav me-auto ms-4">
+
+        <li class="nav-item mx-2">
+          <a class="nav-link text-light fw-semibold" href="/">
+            Home
+          </a>
+        </li>
+
+        <li class="nav-item mx-2">
+          <a class="nav-link text-light fw-semibold" href="/movies">
+            Movies
+          </a>
+        </li>
+
+      </ul>
+
+      <ul class="navbar-nav align-items-center">
+
+        <% if(locals.user){ %>
+
+          <% if(user.role == "ADMIN"){ %>
+
+                      <li class="nav-item mx-2">
+          <a class="nav-link text-light fw-semibold" href="/movies/add">
+            Add movies
+          </a>
+               </li>
+
+             <li class="nav-item mx-2">
+          <a class="nav-link text-light fw-semibold" href="/admin/dashboard">
+            Dashboard
+          </a>
+               </li>
+
+            <% } %>
+
+          <li class="nav-item dropdown">
+
+            <a class="nav-link dropdown-toggle d-flex align-items-center fw-semibold text-light"
+              href="#"
+              id="userDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false">
+
+              👤&nbsp;<%= user.name %>
+
+            </a>
+
+            <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-3 mt-2"
+                aria-labelledby="userDropdown">
+
+              <li>
+                <a class="dropdown-item py-2" href="/reservations">
+                  🎟 My Reservations
+                </a>
+              </li>
+
+              <li><hr class="dropdown-divider"></li>
+
+              <li>
+                <a class="dropdown-item text-danger py-2" href="/auth/logout">
+                  🚪 Logout
+                </a>
+              </li>
+
+            </ul>
+
+          </li>
+
+        <% } else { %>
+
+          <li class="nav-item me-2">
+            <a class="nav-link text-light fw-semibold" href="/auth/login">
+              Login
+            </a>
+          </li>
+
+          <li class="nav-item ms-2">
+            <a class="btn btn-warning px-4 fw-semibold rounded-pill"
+               href="/auth/signup">
+
+              Sign Up
+
+            </a>
+          </li>
+
+        <% } %>
+
+      </ul>
+
+    </div>
+
+  </div>
+</nav>

@@ -1,0 +1,49 @@
+:root{
+    --primary-color:#D4A017;
+    --primary-hover:#B8860B;
+}
+
+.btn-custom{
+    background-color:var(--primary-color);
+    color:white;
+}
+
+.btn-custom:hover{
+    background-color:var(--primary-hover);
+    color:white;
+}
+
+body{
+    background:#F8F9FA;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.navbar .nav-link{
+    transition: all .25s ease;
+}
+
+.navbar .nav-link:hover{
+    color:#FFC107 !important;
+}
+
+.dropdown-menu{
+    min-width:220px;
+}
+
+.dropdown-item:hover{
+    background:#fff8e1;
+}
+
+.navbar-brand{
+    letter-spacing:.5px;
+}

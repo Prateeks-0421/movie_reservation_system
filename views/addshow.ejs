@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add ShowTime | MovieHub</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+    <%- include("partials/navbar") %>
+
+    <div class="container my-5">
+
+        <div class="row justify-content-center">
+
+            <div class="col-lg-7">
+
+                <div class="card shadow-lg border-0 rounded-4">
+
+                    <div class="card-header bg-warning text-dark text-center py-3">
+                        <h2 class="fw-bold mb-0">🎬 Add Show</h2>
+                    </div>
+
+                    <div class="card-body p-5">
+
+                        <% if(typeof error !== "undefined"){ %>
+                            <div class="alert alert-danger">
+                                <%= error %>
+                            </div>
+                        <% } %>
+
+                        <form action="/showtimes/add/<%= movie.id %>" method="POST">
+
+                            <!-- Show Date -->
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold">
+                                    Show Date
+                                </label>
+
+                                <input
+                                    type="date"
+                                    class="form-control form-control-lg"
+                                    name="showdate"
+                                    required>
+                            </div>
+
+                            <!-- Show Time -->
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold">
+                                    Show Time
+                                </label>
+
+                                <input
+                                    type="time"
+                                    class="form-control form-control-lg"
+                                    name="showtime"
+                                    required>
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-6 mb-4">
+
+                                    <label class="form-label fw-semibold">
+                                        Screen Number
+                                    </label>
+
+                                    <input
+                                        type="number"
+                                        class="form-control"
+                                        name="screen"
+                                        min="1"
+                                        placeholder="e.g. 1"
+                                        required>
+
+                                </div>
+
+                                <div class="col-md-6 mb-4">
+
+                                    <label class="form-label fw-semibold">
+                                        Ticket Price (₹)
+                                    </label>
+
+                                    <input
+                                        type="number"
+                                        class="form-control"
+                                        name="price"
+                                        min="1"
+                                        placeholder="e.g. 250"
+                                        required>
+
+                                </div>
+
+                            </div>
+
+                            <div class="mb-4">
+
+                                <label class="form-label fw-semibold">
+                                    Total Seats
+                                </label>
+
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    name="totalSeats"
+                                    min="1"
+                                    placeholder="e.g. 120"
+                                    required>
+
+                            </div>
+
+                            <div class="d-grid">
+
+                                <button
+                                    type="submit"
+                                    class="btn btn-warning btn-lg fw-bold">
+
+                                    ➕ Create Show
+
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

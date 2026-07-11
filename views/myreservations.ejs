@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Reservations | MovieHub</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+
+        body{
+            background:#f5f6fa;
+        }
+
+        .reservation-card{
+            border:none;
+            border-radius:18px;
+            overflow:hidden;
+            transition:.25s;
+        }
+
+        .reservation-card:hover{
+            transform:translateY(-4px);
+            box-shadow:0 12px 30px rgba(0,0,0,.12);
+        }
+
+        .poster{
+            height:280px;
+            object-fit:cover;
+            width:100%;
+        }
+
+        .badge-status{
+            font-size:.9rem;
+            padding:8px 16px;
+            border-radius:30px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<%- include("partials/navbar") %>
+
+<div class="container py-5">
+
+<h1 class="fw-bold mb-5 text-center">
+
+🎟 My Reservations
+
+</h1>
+
+<% if(reservations.length > 0){ %>
+
+<div class="row g-4">
+
+<% reservations.forEach((reservation)=>{ %>
+
+<div class="col-lg-6">
+
+<div class="card reservation-card shadow">
+
+<div class="row g-0">
+
+<div class="col-md-4">
+
+<img
+src="<%= reservation.showtime.movie.posterurl %>"
+class="poster">
+
+</div>
+
+<div class="col-md-8">
+
+<div class="card-body h-100 d-flex flex-column">
+
+<h3 class="fw-bold">
+
+<%= reservation.showtime.movie.title %>
+
+</h3>
+
+<div class="mb-3">
+
+<span class="badge bg-warning text-dark">
+
+<%= reservation.showtime.movie.genre %>
+
+</span>
+
+<span class="badge bg-dark">
+
+<%= reservation.showtime.movie.language %>
+
+</span>
+
+</div>
+
+<p class="mb-2">
+
+📅
+
+<strong>Date :</strong>
+
+<%= new Date(reservation.showtime.showdate).toLocaleDateString("en-IN") %>
+
+</p>
+
+<p class="mb-2">
+
+🕒
+
+<strong>Time :</strong>
+
+<%= new Date(reservation.showtime.showtime).toLocaleTimeString("en-IN",{
+
+hour:"2-digit",
+
+minute:"2-digit"
+
+}) %>
+
+</p>
+
+<p class="mb-2">
+
+🎥
+
+<strong>Screen :</strong>
+
+<%= reservation.showtime.screen %>
+
+</p>
+
+<p class="mb-2">
+
+💺
+
+<strong>Seats :</strong>
+
+<%= reservation.seats %>
+
+</p>
+
+<p class="mb-3">
+
+💰
+
+<strong>Total Paid :</strong>
+
+₹ <%= reservation.totalamount %>
+
+</p>
+
+<%
+
+const completed = new Date(reservation.showtime.showtime) < new Date();
+
+%>
+
+<div class="d-flex justify-content-between align-items-center mt-auto">
+
+<% if(completed){ %>
+
+<span class="badge bg-secondary badge-status">
+
+Completed
+
+</span>
+
+<% } else { %>
+
+<span class="badge bg-success badge-status">
+
+Upcoming
+
+</span>
+
+<% } %>
+
+<a
+href="/movies/<%= reservation.showtime.movie.id %>"
+class="btn btn-warning fw-bold">
+
+View Movie
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<% }) %>
+
+</div>
+
+<% } else { %>
+
+<div class="card border-0 shadow">
+
+<div class="card-body text-center py-5">
+
+<h2>
+
+😔
+
+</h2>
+
+<h3 class="fw-bold">
+
+No Reservations Yet
+
+</h3>
+
+<p class="text-muted">
+
+Looks like you haven't booked any movie tickets.
+
+</p>
+
+<a
+href="/movies"
+class="btn btn-warning fw-bold mt-3">
+
+Browse Movies
+
+</a>
+
+</div>
+
+</div>
+
+<% } %>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
