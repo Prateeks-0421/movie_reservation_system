@@ -228,9 +228,7 @@ Total :
 
 </h4>
 
-<form
-action="/reservations/<%= show.id %>"
-method="POST">
+<form id="bookingform">
 
 <input
 type="hidden"
@@ -240,7 +238,7 @@ id="seatInput">
 <button
 class="btn btn-warning btn-lg mt-4 fw-bold">
 
-Confirm Booking
+Proceed to payment 
 
 </button>
 
@@ -298,7 +296,125 @@ seatInput.value=seats.join(",");
 
 });
 
+const form = document.getElementById("bookingform");
+
+form.addEventListener("submit", async (e) => {
+
+    e.preventDefault();
+
+    if (seats.length === 0) {
+
+        alert("Please select at least one seat.");
+
+        return;
+
+    }
+
+    const response = await fetch("/payment/create-order/<%= show.id %>", {
+
+        method: "POST",
+
+        headers: {
+
+            "Content-Type": "application/json"
+
+        },
+
+        body: JSON.stringify({
+
+            seats: seatInput.value
+
+        })
+
+    });
+
+    const data = await response.json();
+
+    if (!data.success) {
+
+        alert(data.message);
+
+        return;
+
+    }
+
+    const options = {
+
+        key: "<%= key_id %>",
+
+        amount: data.order.amount,
+
+        currency: data.order.currency,
+
+        name: "MovieHub",
+
+        description: "<% show.movie.title %>",
+
+        image: "<%show.movie.posterurl%>",
+
+        order_id: data.order.id,
+
+        handler: async function (response) {
+
+            const verify = await fetch("/payment/verify", {
+
+                method: "POST",
+
+                headers: {
+
+                    "Content-Type": "application/json"
+
+                },
+
+                body: JSON.stringify({
+
+                    razorpay_order_id: response.razorpay_order_id,
+
+                    razorpay_payment_id: response.razorpay_payment_id,
+
+                    razorpay_signature: response.razorpay_signature,
+
+                    showtimeid: <%= show.id %>,
+
+                    seats: seatInput.value
+
+                })
+
+            });
+
+            const result = await verify.json();
+
+            if (result.success) {
+
+                window.location.href = "/reservations";
+
+            }
+
+            else {
+
+                alert(result.message);
+
+            }
+
+        },
+
+        theme: {
+
+            color: "#FFC107"
+
+        }
+
+    };
+
+    const rzp = new Razorpay(options);
+
+    rzp.open();
+
+});
+
 </script>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
 </body>
 

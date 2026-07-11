@@ -40,7 +40,7 @@ async function bookingpage(req, res) {
 
       console.log(bookedSeats) ; 
 
-    res.render("booking", { show  , bookedSeats });
+    res.render("booking", { show  , bookedSeats , key_id : process.env.RAZOR_PAY_KEY });
 }
 
 
