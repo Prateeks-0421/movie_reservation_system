@@ -2,6 +2,7 @@ const prisma = require("../config/prisma");
 const bcrypt = require("bcrypt");
 const  { setuser , getuser  } = require("../services/auth") ; 
 const {client} = require("../client.js") ; 
+const axios = require("axios") ; 
  
 function getsignup(req , res ){
 res.render("signup") ; 
@@ -93,17 +94,46 @@ async function postlogin(req , res ){
     if(!flag){
         
        return  res.status(400).render("login" , { error : "Invalid Email or Password"}) ; 
+
+
     }
-       
-     const token = setuser(newuser) ;
 
-    res.cookie("token", token, {
-    httpOnly: true
-});  
-
-   console.log(req.cookies?.token) ; 
+    const otp = Math.floor(  100000 + Math.random() * 900000 ).toString(); 
+    
+        // user.otp = otp;
+        // user.otpexpiry =  Date.now() + 5*60*1000;
+    
+        // await user.save();
+    
+        await client.set(`otp:${newuser.email}` , otp ,  { EX: 300 } ) ; 
+        
+          await axios.post(
+            "https://api.brevo.com/v3/smtp/email",
+            {
+              sender: {
+                name: "Movie Reservation System",
+                email: "peekingsurfers01@gmail.com"
+              },
+              to: [
+                {
+                  email: newuser.email
+                }
+              ],
+              subject: "OTP Verification",
+              textContent: `Your OTP is ${otp}`
+            },
+            {
+              headers: {
+                "api-key": process.env.BREVO_API_KEY,
+                "Content-Type": "application/json"
+              }
+            }
+          );
+        
+          console.log("Email sent");
      
-    res.redirect("/");
+    res.render("otp" , {  email : newuser.email });
+
     }
     catch(error){
             console.log(error) ; 
