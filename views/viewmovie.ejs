@@ -208,9 +208,6 @@ class="btn btn-warning fw-bold">
    <% flag = 0 ; %>
 <div class="col-lg-4 col-md-6">
 
-<a href="/reservations/<%= show.id %>"
-class="text-decoration-none">
-
 <div class="card show-card shadow-sm">
 
 <div class="card-body text-center p-4">
@@ -269,17 +266,31 @@ year:"numeric"
 
 </div>
 
+<a href="/reservations/<%= show.id %>"
+class="text-decoration-none">
+
 <button class="btn btn-warning w-100 fw-bold">
 
 Book Now →
 
 </button>
 
-</div>
-
-</div>
-
 </a>
+
+<a href="/showtimes/<%= show.id %>"> 
+    
+<button class="btn btn-danger w-100 fw-bold mt-3">
+
+delete showtime
+
+</button>
+    
+    </a>
+
+</div>
+
+</div>
+
 
 </div>
 <% }   %>

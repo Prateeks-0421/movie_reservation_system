@@ -4,10 +4,11 @@ const PDFDocument = require("pdfkit") ;
 
 async function bookingpage(req, res) {
 
-    const show = await prisma.showTime.findUnique({
-        where: {
-            id: Number(req.params.showid) , 
+    const show = await prisma.showTime.findFirst({
 
+             where: {
+             id: Number(req.params.showid) , 
+           
              showtime: {
                       gte: new Date()
                          }
@@ -58,10 +59,10 @@ async function bookingtickets(req, res) {
         await prisma.$transaction(async (tx) => {
 
             // Fetch show details
-            const show = await tx.showTime.findUnique({
+            const show = await tx.showTime.findFirst({
+               
                 where: {
-                    id: showtimeid , 
-
+                 id : Number(req.params.showid) , 
                          showtime: {
                       gte: new Date()
                          }
@@ -306,4 +307,53 @@ try {
 
 }
 
-module.exports = {bookingpage , bookingtickets , myreservations , downloadpdf } ;
+async function getallreservations(req, res) {
+
+    try {
+
+        const reservations = await prisma.reservation.findMany({
+
+            include: {
+
+                showtime: {
+
+                    include: {
+
+                        movie: true
+
+                    }
+
+                } , 
+                    user : true
+                
+
+            } ,
+
+            orderBy: {
+
+                createdAt: "desc"
+
+            }
+
+        });
+
+        return res.render("allreservations", {
+
+            reservations
+
+        });
+
+    }
+
+    catch (err) {
+
+        console.log(err);
+
+        return res.status(500).send("Internal Server Error");
+
+    }
+
+
+}
+
+module.exports = {bookingpage , bookingtickets , myreservations , downloadpdf , getallreservations } ;

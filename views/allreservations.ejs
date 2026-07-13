@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>All Reservations | MovieHub</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+
+        body{
+            background:#f5f6fa;
+        }
+
+        .reservation-card{
+            border:none;
+            border-radius:18px;
+            overflow:hidden;
+            transition:.25s;
+        }
+
+        .reservation-card:hover{
+            transform:translateY(-4px);
+            box-shadow:0 12px 30px rgba(0,0,0,.15);
+        }
+
+        .poster{
+            width:100%;
+            height:100%;
+            object-fit:cover;
+            min-height:320px;
+        }
+
+        .badge-status{
+            padding:8px 18px;
+            border-radius:30px;
+            font-size:.9rem;
+        }
+
+        .info p{
+            margin-bottom:10px;
+            font-size:15px;
+        }
+
+        .movie-title{
+            font-weight:700;
+        }
+
+        .customer{
+            color:#666;
+            font-size:15px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<%- include("partials/navbar") %>
+
+<div class="container py-5">
+
+    <h1 class="fw-bold text-center mb-5">
+
+        🎟️ All Reservations
+
+    </h1>
+
+    <% if(reservations.length>0){ %>
+
+    <div class="row g-4">
+
+        <% reservations.forEach((reservation)=>{ %>
+
+        <div class="col-lg-6">
+
+            <div class="card reservation-card shadow">
+
+                <div class="row g-0">
+
+                    <div class="col-md-4">
+
+                        <img
+                        src="<%= reservation.showtime.movie.posterurl %>"
+                        class="poster">
+
+                    </div>
+
+                    <div class="col-md-8">
+
+                        <div class="card-body d-flex flex-column h-100">
+
+                            <h3 class="movie-title">
+
+                                <%= reservation.showtime.movie.title %>
+
+                            </h3>
+
+                            <p class="customer">
+
+                                👤 Booked By :
+                                <strong><%= reservation.user.name %> (<%= reservation.user.email %>)</strong>
+
+                            </p>
+
+                            <div class="mb-3">
+
+                                <span class="badge bg-warning text-dark">
+
+                                    <%= reservation.showtime.movie.genre %>
+
+                                </span>
+
+                                <span class="badge bg-dark">
+
+                                    <%= reservation.showtime.movie.language %>
+
+                                </span>
+
+                            </div>
+
+                            <div class="info">
+
+                                <p>
+
+                                    📅 <strong>Date :</strong>
+
+                                    <%= reservation.showtime.showdate.toLocaleDateString("en-IN") %>
+
+                                </p>
+
+                                <p>
+
+                                    🕒 <strong>Time :</strong>
+
+                                    <%= reservation.showtime.showtime.toLocaleTimeString("en-IN",{
+                                        hour:"2-digit",
+                                        minute:"2-digit"
+                                    }) %>
+
+                                </p>
+
+                                <p>
+
+                                    🎥 <strong>Screen :</strong>
+
+                                    <%= reservation.showtime.screen %>
+
+                                </p>
+
+                                <p>
+
+                                    💺 <strong>Seats :</strong>
+
+                                    <%= reservation.seats %>
+
+                                </p>
+
+                                <p>
+
+                                    💰 <strong>Total Paid :</strong>
+
+                                    ₹ <%= reservation.totalamount %>
+
+                                </p>
+
+                            </div>
+
+                            <%
+
+                            const completed = reservation.showtime.showtime < new Date();
+
+                            %>
+
+                            <div class="mt-auto d-flex justify-content-between align-items-center">
+
+                                <% if(completed){ %>
+
+                                <span class="badge bg-secondary badge-status">
+
+                                    Completed
+
+                                </span>
+
+                                <% } else { %>
+
+                                <span class="badge bg-success badge-status">
+
+                                    Upcoming
+
+                                </span>
+
+                                <% } %>
+
+                                <a
+                                href="/movies/<%= reservation.showtime.movie.id %>"
+                                class="btn btn-warning fw-bold">
+
+                                    View Movie
+
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <% }) %>
+
+    </div>
+
+    <% } else { %>
+
+    <div class="card shadow border-0">
+
+        <div class="card-body text-center py-5">
+
+            <h1>🎟️</h1>
+
+            <h3>No Reservations Found</h3>
+
+            <p class="text-muted">
+
+                Users haven't booked any movie yet.
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <% } %>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

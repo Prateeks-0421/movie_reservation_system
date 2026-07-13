@@ -94,4 +94,38 @@ async function postshowtime(req , res ){
 
 }
 
-module.exports = {addshowtime , postshowtime } ; 
+async function deleteshowtime(req , res ){
+
+try {
+     await prisma.reservation.deleteMany({
+
+    where: {
+        
+            showtimeid: Number(req.params.id)
+        
+    }
+
+ }) ; 
+
+ await prisma.showTime.deleteMany({
+
+    where : {
+        id : Number(req.params.id) , 
+    }
+
+ }) ; 
+ 
+  }
+  catch(error){
+
+    console.log(error) ; 
+    res.send("internal server error") ; 
+
+  }
+  
+  res.redirect("/movies") ; 
+
+
+}
+
+module.exports = {addshowtime , postshowtime , deleteshowtime } ; 

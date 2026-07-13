@@ -9,6 +9,8 @@ const routes = require("./routes/index.js") ;
 require("dotenv").config();
 
 const {checkauth  , restricttologinuser , restrictto } = require("./middlewares/auth") ; 
+const session = require("express-session");
+const flash = require("connect-flash");
 
 const app = express();
 
@@ -30,7 +32,7 @@ app.use(routes) ;
 
 app.use("/" , ( req , res ) => {
 
-      res.render("home") ; 
+      res.render("home") ;  
 
 }) ; 
  

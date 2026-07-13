@@ -304,7 +304,21 @@ form.addEventListener("submit", async (e) => {
 
     if (seats.length === 0) {
 
-        alert("Please select at least one seat.");
+  Swal.fire({
+
+    toast: true,
+
+    position: "top-end",
+
+    icon: "warning",
+
+    title: "Please select at least one seat",
+
+    showConfirmButton: false,
+
+    timer: 3000
+
+});
 
         return;
 
@@ -332,7 +346,23 @@ form.addEventListener("submit", async (e) => {
 
     if (!data.success) {
 
-        alert(data.message);
+        // alert(data.message);
+
+        Swal.fire({
+
+    toast: true,
+
+    position: "top-end",
+
+    icon: "warning",
+
+    title: data.message ,
+
+    showConfirmButton: false,
+
+    timer: 3000
+
+});
 
         return;
 
@@ -386,11 +416,44 @@ form.addEventListener("submit", async (e) => {
 
             if (result.success) {
 
+                Swal.fire({
+
+          toast: true,
+
+           position: "top-end",
+
+               icon: "success",
+
+              title: "Payment completed successfully",
+
+              showConfirmButton: false,
+
+               timer: 3000
+
+});
+
                 window.location.href = "/payment/success/" + result.id ;
 
             }
 
             else {
+
+                
+                Swal.fire({
+
+                toast: true,
+
+                position: "top-end",
+
+               icon: "error",
+
+               title: "Something went wrong",
+
+               showConfirmButton: false,
+
+               timer: 3000
+
+            });
 
                   window.location.href = "/payment/failed" ;
 
@@ -415,6 +478,7 @@ form.addEventListener("submit", async (e) => {
 </script>
 
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </body>
 
