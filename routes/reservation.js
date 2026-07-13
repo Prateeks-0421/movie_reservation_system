@@ -3,13 +3,15 @@ const { checkauth ,  restricttologinuser , restrictto } = require("../middleware
 
 const router = express.Router();
 
-const {bookingpage , bookingtickets , myreservations } = require("../controllers/reservation") ; 
+const {bookingpage , bookingtickets , myreservations , downloadpdf } = require("../controllers/reservation") ; 
 
 router.get("/:showid", bookingpage );
 
 router.post("/:showid", bookingtickets );
 
 router.get("/" ,  myreservations ) ; 
+
+router.get("/download/:id" , downloadpdf ) ; 
 
 module.exports = router;
 

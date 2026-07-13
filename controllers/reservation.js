@@ -1,5 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+const PDFDocument = require("pdfkit") ; 
 
 async function bookingpage(req, res) {
 
@@ -40,7 +41,7 @@ async function bookingpage(req, res) {
 
       console.log(bookedSeats) ; 
 
-    res.render("booking", { show  , bookedSeats });
+    res.render("booking", { show  , bookedSeats , key_id : process.env.RAZOR_PAY_KEY });
 }
 
 
@@ -187,6 +188,122 @@ async function myreservations(req, res) {
 
     }
 
+
 }
 
-module.exports = {bookingpage , bookingtickets , myreservations } ;
+async function downloadpdf( req , res ){
+
+try {
+
+        const reservation = await prisma.reservation.findUnique({
+
+            where: {
+
+                id: Number(req.params.id)
+
+            },
+
+            include: {
+
+                showtime: {
+
+                    include: {
+
+                        movie: true
+
+                    }
+
+                },
+
+                user: true
+
+            }
+
+        });
+
+        if (!reservation) {
+
+            return res.send("Reservation not found.");
+
+        }
+
+        const doc = new PDFDocument();
+
+        res.setHeader(
+            "Content-Type",
+            "application/pdf"
+        );
+
+        res.setHeader(
+            "Content-Disposition",
+            `attachment; filename=MovieTicket-${reservation.id}.pdf`
+        );
+
+        doc.pipe(res);
+
+        doc.fontSize(26)
+           .fillColor("red")
+           .text(" MovieHub", {
+                align: "center"
+           });
+
+        doc.moveDown();
+
+        doc.fontSize(20)
+           .fillColor("black")
+           .text("Movie Ticket", {
+                align: "center"
+           });
+
+        doc.moveDown();
+
+        doc.fontSize(14);
+
+        doc.text(`Booking ID : ${reservation.id}`);
+
+        doc.text(`Customer : ${reservation.user.name}`);
+
+        doc.text(`Movie : ${reservation.showtime.movie.title}`);
+
+        doc.text(`Seats : ${reservation.seats}`);
+
+        doc.text(`Amount Paid : ${reservation.totalamount}`);
+
+        doc.text(`Status : ${reservation.status}`);
+
+        doc.text(
+            `Date : ${
+                reservation.showtime.showdate.toLocaleDateString()
+            }`
+        );
+
+        doc.text(
+            `Time : ${
+                reservation.showtime.showtime.toLocaleTimeString()
+            }`
+        );
+
+        doc.text(`Screen : ${reservation.showtime.screen}`);
+
+        doc.moveDown();
+
+        doc.text(
+            "Please arrive 20 minutes before the show."
+        );
+
+        doc.end();
+
+    }
+
+    catch(err){
+
+        console.log(err);
+
+        res.send("Something went wrong.");
+
+    }
+
+
+}
+
+module.exports = {bookingpage , bookingtickets , myreservations , downloadpdf } ;

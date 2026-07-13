@@ -6,6 +6,8 @@ const cookieparser = require("cookie-parser") ;
 
 const routes = require("./routes/index.js") ;
 
+require("dotenv").config();
+
 const {checkauth  , restricttologinuser , restrictto } = require("./middlewares/auth") ; 
 
 const app = express();

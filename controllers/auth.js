@@ -1,7 +1,8 @@
 const prisma = require("../config/prisma");
 const bcrypt = require("bcrypt");
 const  { setuser , getuser  } = require("../services/auth") ; 
-
+const {client} = require("../client.js") ; 
+ 
 function getsignup(req , res ){
 res.render("signup") ; 
 }
@@ -98,16 +99,22 @@ async function postlogin(req , res ){
 
     res.cookie("token", token, {
     httpOnly: true
-});
+});  
+
+   console.log(req.cookies?.token) ; 
      
     res.redirect("/");
     }
     catch(error){
+            console.log(error) ; 
            return  res.status(500).render("login" , { error : "some error occured"}) ;     
     }
 }
  
-function postlogout(req , res ){
+async function postlogout(req , res ){
+
+
+ await client.set(`token:${req.cookies?.token}` , 1 , { EX : 86400}) ; 
 
   res.clearCookie("token") ; 
   res.redirect("/") ; 
