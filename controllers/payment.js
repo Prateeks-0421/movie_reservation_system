@@ -199,7 +199,7 @@ async function verifypayment(req, res) {
 
         await prisma.$transaction(async (tx) => {
 
-            await tx.reservation.create({
+         await tx.reservation.create({
 
                 data: {
 
@@ -227,9 +227,29 @@ async function verifypayment(req, res) {
 
         }
 
+             const reservation = await prisma.reservation.findFirst({
+
+                where: {
+
+                    userid: req.user.id,
+
+                    showtimeid: Number(showtimeid),
+
+                    seats: seats,
+
+                    totalamount: totalAmount,
+
+                    status: "CONFIRMED"
+
+                }
+
+            });
+
+
         return res.json({
 
-            success: true
+            success: true , 
+            id : reservation.id , 
 
         });
 
@@ -251,4 +271,52 @@ async function verifypayment(req, res) {
 
 }
 
-module.exports = {createorder , verifypayment } ; 
+async function paymentsuccess(req, res) {
+
+    const reservation = await prisma.reservation.findUnique({
+
+        where: {
+            id: Number(req.params.id)
+        },
+
+        include: {
+
+            user: true,
+
+            showtime: {
+
+                include: {
+
+                    movie: true
+
+                }
+
+            }
+
+        }
+
+    });
+
+    if (!reservation) {
+
+        return res.send("Reservation not found.");
+
+    }
+
+    res.render("paymentsuccess", {
+
+        reservation
+
+    });
+
+}
+
+function paymentfailed(req, res) {
+
+    res.render("paymentfailed");
+
+}
+
+
+
+module.exports = {createorder , verifypayment , paymentsuccess , paymentfailed } ; 

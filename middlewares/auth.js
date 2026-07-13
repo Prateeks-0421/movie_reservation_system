@@ -1,11 +1,18 @@
 const { setuser , getuser } = require("../services/auth") ; 
+const {client} = require("../client.js") ; 
 
 async function checkauth(req , res , next ){
 
     const token = req.cookies?.token ; 
     // const token = res.headers.authorization?.split(' ')[1] ; 
-
+   
     if(!token){
+        return next() ; 
+    }
+
+    const blocked = await client.get(`token:${token}`) ; 
+
+    if(blocked){
         return next() ; 
     }
 
@@ -23,7 +30,7 @@ async function checkauth(req , res , next ){
     return next() ; 
 }
 
-function restricttologinuser(req, res, next) {
+async function restricttologinuser(req, res, next) {
 
     if (!req.user) {
         return res.redirect("/auth/login");
