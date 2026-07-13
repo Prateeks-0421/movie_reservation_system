@@ -19,7 +19,7 @@ async function bookingpage(req, res) {
     });
 
     if (!show) {
-        return res.status(404).send("Show not found");
+        return res.send("404");
     }
 
     const reservations = await prisma.reservation.findMany({
@@ -135,7 +135,7 @@ async function bookingtickets(req, res) {
 
         console.log(err);
 
-        return res.status(500).send(err.message);
+        return  res.render("500") ; 
 
     }
 
@@ -185,7 +185,7 @@ async function myreservations(req, res) {
 
         console.log(err);
 
-        return res.status(500).send("Internal Server Error");
+       return res.render("500") ; 
 
     }
 
@@ -300,7 +300,7 @@ try {
 
         console.log(err);
 
-        res.send("Something went wrong.");
+       return res.render("500") ; 
 
     }
 
@@ -349,7 +349,7 @@ async function getallreservations(req, res) {
 
         console.log(err);
 
-        return res.status(500).send("Internal Server Error");
+       return res.render("500") ; 
 
     }
 

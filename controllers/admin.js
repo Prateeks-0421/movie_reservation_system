@@ -41,7 +41,7 @@ async function admindashboard(req, res) {
 
         console.log(err);
 
-        res.send("Internal Server Error");
+        res.render("500");
 
     }
 

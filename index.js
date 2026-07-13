@@ -30,10 +30,18 @@ app.use(checkauth) ;
 
 app.use(routes) ; 
 
-app.use("/" , ( req , res ) => {
+
+app.get("/" , ( req , res ) => {
 
       res.render("home") ;  
 
 }) ; 
+
+app.use((req, res) => {
+
+    res.status(404).render("404");
+
+});
+
  
 module.exports = app;

@@ -23,7 +23,7 @@ async function addshowtime(req , res ){
   }
   catch(error){
     console.log(error) ; 
-    res.status(500).send("internal server error") ; 
+    return res.render("500") ;  
   }
 
 }
@@ -88,7 +88,7 @@ async function postshowtime(req , res ){
 
         console.log(err);
 
-        return res.status(500).send("Internal Server Error");
+       return res.render("500") ; 
 
     }
 
@@ -119,10 +119,10 @@ try {
   catch(error){
 
     console.log(error) ; 
-    res.send("internal server error") ; 
+    return res.render("500") ; 
 
   }
-  
+
   res.redirect("/movies") ; 
 
 

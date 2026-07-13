@@ -14,7 +14,8 @@ async function addmovie(req, res) {
             posterurl 
         } = req.body;
 
-        // Validation
+        // Validation  
+        
         if (
             !title ||
             !description ||
@@ -48,6 +49,7 @@ async function addmovie(req, res) {
             }
         });
 
+
         return res.redirect("/movies");
 
     } catch (err) {
@@ -70,6 +72,7 @@ async function getmovie(req, res) {
                 createdAt: "desc"
             }
         });
+
 
         return res.render("movies", {
             movies
@@ -117,7 +120,7 @@ async function viewmovie(req, res) {
 
         console.log(err);
 
-        return res.status(500).send("Internal Server Error");
+        return res.render("500");
 
     }
 
@@ -155,7 +158,7 @@ async function deletemovie(req , res ){
   catch(error){
 
     console.log(error) ; 
-    res.send("internal server error") ; 
+    res.render("500");
 
   }
   res.redirect("/movies") ; 
