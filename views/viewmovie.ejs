@@ -277,6 +277,8 @@ Book Now →
 
 </a>
 
+<% if(locals.user && locals.user.role==="ADMIN"){ %>
+
 <a href="/showtimes/<%= show.id %>"> 
     
 <button class="btn btn-danger w-100 fw-bold mt-3">
@@ -286,6 +288,8 @@ delete showtime
 </button>
     
     </a>
+
+   <% } %> 
 
 </div>
 
