@@ -1,17 +1,36 @@
 :root{
-    --primary-color:#D4A017;
-    --primary-hover:#B8860B;
+    --primary-color:#5ab7cc;
+    --primary-hover:#47d0ef;
 }
 
-.btn-custom{
+/* .btn-warning{
     background-color:var(--primary-color);
-    color:white;
+    border-color: var(--primary-color);
+    
+    color:black;
 }
 
-.btn-custom:hover{
+.btn-warning:hover{
     background-color:var(--primary-hover);
+    border-color: var(--primary-hover);
     color:white;
+} */
+/* 
+.btn-warning{
+
+    background:#055160 !important;
+    border-color:#055160 !important;
+    color:white !important;
+
 }
+
+.btn-warning:hover{
+
+    background:#044252 !important;
+    border-color:#044252 !important;
+    color:white !important;
+
+} */
 
 body{
     background:#F8F9FA;

@@ -129,6 +129,15 @@ async function viewmovie(req, res) {
 async function deletemovie(req , res ){
 
   try {
+
+      await prisma.comment.deleteMany({
+
+        where : {
+        movieid : Number(req.params.id) , 
+    }
+
+ }) ; 
+
      await prisma.reservation.deleteMany({
 
     where: {
@@ -208,6 +217,12 @@ body : req.body.body ,
 
 }) ; 
 
+  const movie = await prisma.movie.findUnique({
+    where:{
+        id:Number(req.params.id)
+    }
+});
+
  const comments = await prisma.comment.findMany({
 
    where : {
@@ -219,7 +234,7 @@ body : req.body.body ,
    }  
   }) ; 
 
-   res.render("allcomments" , { comments }) ; 
+   res.render("allcomments" , { comments , movie }) ; 
 
 }
 
