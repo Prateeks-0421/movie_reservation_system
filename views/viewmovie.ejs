@@ -157,6 +157,12 @@ class="btn btn-outline-dark">
 
 </a>
 
+<a href="/movies/comments/<%= movie.id %>" class="btn btn-outline-dark"> 
+    
+see Reviews
+    
+    </a>
+
 <% if(locals.user && locals.user.role==="ADMIN"){ %>
 
 <a href="/showtimes/add/<%= movie.id %>"

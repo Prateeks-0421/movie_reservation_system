@@ -1,5 +1,5 @@
 const express = require("express");
-const {addmovie , getmovie , viewmovie , deletemovie } = require("../controllers/movie") ; 
+const {addmovie , getmovie , viewmovie , deletemovie , getcomments , postcomments } = require("../controllers/movie") ; 
 const { checkauth ,  restricttologinuser , restrictto } = require("../middlewares/auth.js") ; 
 const  { ratelimiterlogin  , ratelimitersignup , ratelimitercreateorder , ratelimiterverifyorder , ratelimiteraddmovie , ratelimiterdeletemovie } = require("../middlewares/ratelimiter")  ;
 // const {upload} = require("../middlewares/upload") ;
@@ -23,7 +23,10 @@ router.post(
 
 router.get("/:id" , viewmovie ) ; 
 
-router.post("/delete/:id" , restricttologinuser , restrictto("ADMIN") , ratelimiterdeletemovie , deletemovie ) ; 
+router.post("/delete/:id" , restricttologinuser , restrictto("ADMIN") , ratelimiterdeletemovie , deletemovie ) ;
+
+router.get("/comments/:id" , getcomments ) ; 
+router.post("/comments/:id" , postcomments )
 
 module.exports = router;
 

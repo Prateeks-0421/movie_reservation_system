@@ -164,6 +164,65 @@ async function deletemovie(req , res ){
   res.redirect("/movies") ; 
 }
 
+async function getcomments(req , res ){
+
+try {   
+
+     const movie = await prisma.movie.findUnique({
+    where:{
+        id:Number(req.params.id)
+    }
+});
+     const comments = await prisma.comment.findMany({
+
+   where : {
+        movieid : Number(req.params.id) 
+   } , 
+   include : {
+    user : true , 
+    movie : true 
+   }
+
+ }) ; 
+
+ res.render("allcomments" , { comments , movie }) ; 
+}
+catch(error){
+
+console.log(error) ; 
+res.render("500") ; 
+
+}
+
+}
+
+async function postcomments(req , res ){
+
+await prisma.comment.create({
+
+data : {
+ movieid : Number(req.params.id) , 
+userid : req.user.id , 
+body : req.body.body , 
+}
+
+}) ; 
+
+ const comments = await prisma.comment.findMany({
+
+   where : {
+        movieid : Number(req.params.id) 
+   } , 
+   include : {
+    user : true , 
+    movie : true 
+   }  
+  }) ; 
+
+   res.render("allcomments" , { comments }) ; 
+
+}
+
 module.exports = {
-    addmovie , getmovie , viewmovie , deletemovie
+    addmovie , getmovie , viewmovie , deletemovie , getcomments , postcomments 
 };

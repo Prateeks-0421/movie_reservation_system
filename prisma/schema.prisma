@@ -29,6 +29,7 @@ model User {
   updatedAt DateTime @updatedAt
 
   reservations        Reservation[]
+   comments         Comment[]
 }
 
 
@@ -46,6 +47,7 @@ model Movie {
   updatedAt DateTime @updatedAt
 
    showtimes        ShowTime[]
+   comments         Comment[]
 
 }
 
@@ -81,9 +83,27 @@ model Reservation {
 
   totalamount         Int
 
-  status           String   @default("CONFIRMED")
+  status             String   @default("CONFIRMED")
+
 
   createdAt       DateTime @default(now())
   updatedAt        DateTime @updatedAt
+
+}
+
+model Comment {
+
+  id                    Int        @id @default(autoincrement())
+
+  userid                Int
+  user                  User      @relation(fields: [userid], references: [id])
+
+  movieid               Int
+  movie                 Movie     @relation(fields: [movieid], references: [id])
+
+  body                 String
+
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
 
 }

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Movie Reviews | MovieHub</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+
+body{
+    background:#f5f6fa;
+}
+
+.page-title{
+    font-weight:700;
+}
+
+.comment-card{
+
+    border:none;
+    border-radius:16px;
+    transition:.2s;
+
+}
+
+.comment-card:hover{
+
+    transform:translateY(-3px);
+    box-shadow:0 12px 30px rgba(0,0,0,.08);
+
+}
+
+.comment-form{
+
+    border:none;
+    border-radius:18px;
+
+}
+
+.avatar{
+
+    width:52px;
+    height:52px;
+    border-radius:50%;
+    background:#ffc107;
+    color:#000;
+    font-size:20px;
+    font-weight:bold;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+}
+
+.comment-text{
+
+    white-space:pre-wrap;
+    color:#444;
+
+}
+
+textarea{
+
+    resize:none;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<%- include("partials/navbar") %>
+
+<div class="container py-5">
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+<div>
+
+<h2 class="page-title">
+
+Movie Reviews
+
+</h2>
+
+<% if(comments.length > 0){ %>
+
+<p class="text-muted mb-0">
+
+<%= comments[0].movie.title %>
+
+</p>
+
+<% } %>
+
+</div>
+
+<% if(comments.length > 0){ %>
+
+<a href="/movies/<%= comments[0].movie.id %>" class="btn btn-outline-dark">
+
+← Back to Movie
+
+</a>
+
+<% } %>
+
+</div>
+
+
+<!-- COMMENT FORM -->
+
+<div class="card comment-form shadow-sm mb-5">
+
+<div class="card-body">
+
+<h5 class="fw-bold mb-3">
+
+Write a Review
+
+</h5>
+
+<form action="/movies/comments/<%= comments.length>0 ? comments[0].movie.id : movie.id %>" method="POST">
+
+<div class="mb-3">
+
+<textarea
+
+class="form-control"
+
+rows="4"
+
+name="body"
+
+placeholder="Share your thoughts about this movie..."
+
+required
+
+></textarea>
+
+</div>
+
+<div class="text-end">
+
+<button class="btn btn-warning fw-semibold px-4">
+
+Post Comment
+
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+
+<!-- COMMENTS -->
+
+<% if(comments.length===0){ %>
+
+<div class="card shadow border-0">
+
+<div class="card-body text-center py-5">
+
+<h4>
+
+No Reviews Yet
+
+</h4>
+
+<p class="text-muted mb-0">
+
+Be the first person to review this movie.
+
+</p>
+
+</div>
+
+</div>
+
+<% }else{ %>
+
+<div class="row g-4">
+
+<% comments.forEach(comment=>{ %>
+
+<div class="col-lg-8 mx-auto">
+
+<div class="card comment-card shadow-sm">
+
+<div class="card-body">
+
+<div class="d-flex align-items-center">
+
+<div class="avatar">
+
+<%= comment.user.name.charAt(0).toUpperCase() %>
+
+</div>
+
+<div class="ms-3">
+
+<h5 class="mb-1 fw-bold">
+
+<%= comment.user.name %>
+
+</h5>
+
+<small class="text-muted">
+
+<%= new Date(comment.createdAt).toLocaleString("en-IN",{
+
+day:"2-digit",
+
+month:"short",
+
+year:"numeric",
+
+hour:"2-digit",
+
+minute:"2-digit"
+
+}) %>
+
+</small>
+
+</div>
+
+</div>
+
+<hr>
+
+<p class="comment-text mb-0">
+
+<%= comment.body %>
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<% }) %>
+
+</div>
+
+<% } %>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
