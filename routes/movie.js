@@ -26,7 +26,7 @@ router.get("/:id" , viewmovie ) ;
 router.post("/delete/:id" , restricttologinuser , restrictto("ADMIN") , ratelimiterdeletemovie , deletemovie ) ;
 
 router.get("/comments/:id" , getcomments ) ; 
-router.post("/comments/:id" , postcomments )
+router.post("/comments/:id" ,  restricttologinuser , postcomments ) ; 
 
 module.exports = router;
 
