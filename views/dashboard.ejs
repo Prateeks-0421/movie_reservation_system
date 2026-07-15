@@ -2,298 +2,224 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | MovieHub</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body {
+            background: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: #0f0f0f;
+            -webkit-font-smoothing: antialiased;
+        }
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        .wrapper {
+            max-width: 1050px;
+            margin: auto;
+        }
 
-<title>Admin Dashboard</title>
+        .page-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #0f0f0f;
+            letter-spacing: -0.3px;
+        }
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+        .page-desc {
+            font-size: 14px;
+            color: #606060;
+            margin-top: 2px;
+        }
 
-<style>
+        /* Flat Metric Block Framework */
+        .metric-cell {
+            background: #ffffff;
+            border: 1px solid #efefef;
+            border-radius: 6px;
+            padding: 18px 20px;
+        }
 
-body{
-    background:#f6f7fb;
-}
+        .metric-label {
+            color: #909090;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            margin-bottom: 4px;
+        }
 
-.page-title{
-    font-weight:700;
-    color:#222;
-}
+        .metric-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #0f0f0f;
+        }
 
-.page-subtitle{
-    color:#6c757d;
-}
+        /* Workspace Block Formatting */
+        .workspace-panel {
+            background: #ffffff;
+            border: 1px solid #efefef;
+            border-radius: 8px;
+            padding: 24px;
+            height: 100%;
+        }
 
-.stat-card{
+        .panel-heading {
+            font-size: 15px;
+            font-weight: 600;
+            color: #0f0f0f;
+            margin-bottom: 16px;
+        }
 
-    background:white;
+        .text-revenue {
+            font-size: 32px;
+            font-weight: 700;
+            color: #0f0f0f;
+            letter-spacing: -0.5px;
+        }
 
-    border:none;
+        .ui-tag {
+            font-size: 11px;
+            font-weight: 500;
+            padding: 3px 8px;
+            border-radius: 4px;
+            background: #f2f2f2;
+            color: #606060;
+            display: inline-block;
+        }
 
-    border-radius:18px;
+        /* Platform Custom Navigation Buttons */
+        .btn-platform {
+            font-size: 13px;
+            font-weight: 500;
+            background: #0f0f0f;
+            color: #ffffff;
+            border-radius: 18px;
+            padding: 8px 16px;
+            border: none;
+            transition: background 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-    padding:28px;
+        .btn-platform:hover {
+            background: #272727;
+            color: #ffffff;
+        }
 
-    box-shadow:0 8px 25px rgba(0,0,0,.05);
+        .btn-platform-outline {
+            font-size: 13px;
+            font-weight: 500;
+            color: #0f0f0f;
+            border: 1px solid #d3d3d3;
+            border-radius: 18px;
+            padding: 7px 16px;
+            transition: background 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-    transition:.25s;
-
-    height:100%;
-}
-
-.stat-card:hover{
-
-    transform:translateY(-4px);
-
-}
-
-.stat-title{
-
-    color:#777;
-
-    font-size:15px;
-
-    margin-bottom:15px;
-
-}
-
-.stat-value{
-
-    font-size:2.2rem;
-
-    font-weight:700;
-
-    color:#222;
-
-}
-
-.section-card{
-
-    background:white;
-
-    border:none;
-
-    border-radius:18px;
-
-    box-shadow:0 8px 25px rgba(0,0,0,.05);
-
-}
-
-.revenue{
-
-    font-size:3rem;
-
-    font-weight:700;
-
-    color:#ffc107;
-
-}
-
-.btn-dashboard{
-
-    border-radius:10px;
-
-    font-weight:600;
-
-    padding:12px;
-
-}
-
-</style>
-
+        .btn-platform-outline:hover {
+            background: #f2f2f2;
+            color: #0f0f0f;
+        }
+    </style>
 </head>
 
 <body>
 
-<%- include("partials/navbar") %>
-
-<div class="container py-5">
-
-<div class="mb-5">
-
-<h2 class="page-title">
-
-Dashboard
-
-</h2>
-
-<p class="page-subtitle">
-
-Overview of your movie reservation platform.
-
-</p>
-
-</div>
-
-<div class="row g-4">
-
-<div class="col-lg-3 col-md-6">
-
-<div class="stat-card">
-
-<div class="stat-title">
-
-Movies
-
-</div>
-
-<div class="stat-value">
-
-<%= totalMovies %>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="col-lg-3 col-md-6">
-
-<div class="stat-card">
-
-<div class="stat-title">
-
-Users
-
-</div>
-
-<div class="stat-value">
-
-<%= totalUsers %>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="col-lg-3 col-md-6">
-
-<div class="stat-card">
-
-<div class="stat-title">
-
-Shows
-
-</div>
-
-<div class="stat-value">
-
-<%= totalShows %>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="col-lg-3 col-md-6">
-
-<div class="stat-card">
-
-<div class="stat-title">
-
-Reservations
-
-</div>
-
-<div class="stat-value">
-
-<%= totalReservations %>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="row mt-5 g-4">
-
-<div class="col-lg-7">
-
-<div class="section-card">
-
-<div class="card-body p-5">
-
-<h5 class="mb-4">
-
-Revenue
-
-</h5>
-
-<div class="revenue">
-
-₹ <%= revenue %>
-
-</div>
-
-<p class="text-muted mt-3 mb-0">
-
-Total earnings generated through confirmed bookings.
-
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="col-lg-5">
-
-<div class="section-card">
-
-<div class="card-body p-5">
-
-<h5 class="mb-4">
-
-Quick Actions
-
-</h5>
-
-<div class="d-grid gap-3">
-
-<a href="/movies/add"
-
-class="btn btn-warning btn-dashboard">
-
-Add Movie
-
-</a>
-
-<a href="/movies"
-
-class="btn btn-outline-dark btn-dashboard">
-
-Manage Movies
-
-</a>
-
-<a href="/reservations/all"
-
-class="btn btn-outline-dark btn-dashboard">
-
-View Reservations
-
-</a>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
-
+    <%- include("partials/navbar") %>
+
+    <div class="container py-5">
+        <div class="wrapper">
+
+            <!-- Context Title Section -->
+            <div class="mb-4 pb-3 border-bottom">
+                <h1 class="page-title">Dashboard</h1>
+                <p class="page-desc">System log aggregates and active reservation indices overview.</p>
+            </div>
+
+            <!-- Operational Metrics Row -->
+            <div class="row g-3">
+                <div class="col-sm-6 col-lg-3">
+                    <div class="metric-cell">
+                        <div class="metric-label">Movies</div>
+                        <div class="metric-value"><%= totalMovies %></div>
+                    </div>
+                </div>
+                
+                <div class="col-sm-6 col-lg-3">
+                    <div class="metric-cell">
+                        <div class="metric-label">Users</div>
+                        <div class="metric-value"><%= totalUsers %></div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-3">
+                    <div class="metric-cell">
+                        <div class="metric-label">Shows</div>
+                        <div class="metric-value"><%= totalShows %></div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-3">
+                    <div class="metric-cell">
+                        <div class="metric-label">Reservations</div>
+                        <div class="metric-value"><%= totalReservations %></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sectional Work Areas -->
+            <div class="row mt-4 g-4">
+                
+                <!-- Financial Earnings Module -->
+                <div class="col-lg-7">
+                    <div class="workspace-panel">
+                        <h2 class="panel-heading">Revenue Log</h2>
+                        
+                        <div class="pt-2">
+                            <span class="text-revenue">₹<%= revenue %></span>
+                        </div>
+                        
+                        <p class="text-muted fs-6 mt-3 mb-0">
+                            Total earnings securely mapped and generated through confirmed checkout transactions.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Admin Tool Module -->
+                <div class="col-lg-5">
+                    <div class="workspace-panel">
+                        <h2 class="panel-heading">System Utilities</h2>
+                        
+                        <div class="d-flex flex-column gap-2 pt-2">
+                            <a href="/movies/add" class="btn-platform">
+                                + Add Catalog Entry
+                            </a>
+                            
+                            <a href="/movies" class="btn-platform-outline">
+                                Manage Catalog Listings
+                            </a>
+                            
+                            <a href="/reservations/all" class="btn-platform-outline">
+                                View Master Reservations List
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

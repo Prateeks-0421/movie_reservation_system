@@ -2,218 +2,141 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovieHub</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        html, body {
+            height: 100%;
+        }
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        body {
+            display: flex;
+            flex-direction: column;
+            background: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: #0f0f0f;
+            -webkit-font-smoothing: antialiased;
+        }
 
-<title>MovieHub</title>
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 0;
+        }
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+        .hero-container {
+            max-width: 580px;
+            margin: auto;
+        }
 
-<link rel="stylesheet" href="/css/style.css">
+        /* Monochromatic, clean heading */
+        .hero-title {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: #0f0f0f;
+            margin-bottom: 12px;
+        }
 
-<style>
+        /* Clean descriptive text */
+        .hero-desc {
+            color: #606060;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 24px;
+        }
 
-html,body{
-    height:100%;
-}
+        /* Production-ready action button */
+        .btn-platform {
+            background: #0f0f0f;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: none;
+            transition: background 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+        }
 
-body{
-    display:flex;
-    flex-direction:column;
-    background:#f8f9fb;
-}
+        .btn-platform:hover {
+            background: #272727;
+            color: #ffffff;
+        }
 
-main{
-    flex:1;
-}
+        /* Color-coordinated minimalist error badge */
+        .alert-custom-error {
+            background-color: #fdf2f2;
+            border: 1px solid #fde8e8;
+            color: #9b1c1c;
+            font-size: 13px;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 24px;
+            text-align: left;
+        }
 
-.hero{
-
-    padding:90px 0 70px;
-
-}
-
-.hero h1{
-
-    font-size:3rem;
-    font-weight:700;
-    color:#1f2937;
-    line-height:1.2;
-
-}
-
-.hero p{
-
-    color:#6c757d;
-    font-size:1.1rem;
-    max-width:620px;
-    margin:25px auto;
-
-}
-
-.btn-main{
-
-    background:#ffc107;
-    color:#000;
-    font-weight:600;
-    padding:12px 34px;
-    border-radius:10px;
-    transition:.25s;
-
-}
-
-.btn-main:hover{
-
-    background:#ffca2c;
-
-}
-
-.stats{
-
-    margin-top:70px;
-
-}
-
-.stat-card{
-
-    background:white;
-    border:none;
-    border-radius:16px;
-    box-shadow:0 8px 25px rgba(0,0,0,.05);
-    padding:28px;
-    transition:.25s;
-
-}
-
-.stat-card:hover{
-
-    transform:translateY(-5px);
-
-}
-
-.stat-number{
-
-    font-size:2rem;
-    font-weight:700;
-
-}
-
-.features{
-
-    padding:80px 0;
-
-}
-
-.feature{
-
-    background:white;
-    border:none;
-    border-radius:18px;
-    box-shadow:0 8px 25px rgba(0,0,0,.05);
-    padding:35px;
-    transition:.25s;
-
-}
-
-.feature:hover{
-
-    transform:translateY(-6px);
-
-}
-
-.feature-icon{
-
-    font-size:40px;
-
-}
-
-footer{
-
-    background:white;
-    border-top:1px solid #ececec;
-
-}
-
-</style>
-
+        /* Structural Footer */
+        footer {
+            background: #ffffff;
+            border-top: 1px solid #efefef;
+            font-size: 12px;
+        }
+        
+        .footer-text {
+            color: #606060;
+        }
+    </style>
 </head>
 
 <body>
 
-<%- include("partials/navbar") %>
+    <%- include("partials/navbar") %>
 
-<main>
+    <main>
+        <div class="container text-center">
+            <div class="hero-container">
+                
+                <% if(locals.error){ %>
+                    <div class="alert alert-custom-error d-flex align-items-center">
+                        <svg class="me-2" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+                        </svg>
+                        <span><%= error %></span>
+                    </div>
+                <% } %>
 
-<section class="hero">
+                <h1 class="hero-title">Book Movie Tickets</h1>
+                
+                <p class="hero-desc">
+                    Access real-time seat validation, secure transaction flows, and instantaneous digital ticket assignment.
+                </p>
 
-<div class="container text-center">
+                <a href="/movies" class="btn btn-platform">
+                    Browse Catalogue
+                </a>
 
-<% if(locals.error){ %>
+            </div>
+        </div>
+    </main>
 
-<div class="alert alert-danger">
+    <footer class="py-3">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <span class="footer-text">© 2026 MovieHub</span>
+                <span class="footer-text text-end"></span>
+            </div>
+        </div>
+    </footer>
 
-<%= error %>
-
-</div>
-
-<% } %>
-
-<h1>
-
-Book Movie Tickets Effortlessly
-
-</h1>
-
-<p>
-
-Experience a modern movie reservation platform with secure payments,
-real-time seat selection, and instant booking confirmations.
-
-</p>
-
-<a href="/movies" class="btn btn-main">
-
-Browse Movies
-
-</a>
-
-
-
-</div>
-
-</section>
-
-
-
-</main>
-
-<footer class="py-4">
-
-<div class="container">
-
-<div class="d-flex justify-content-between">
-
-<span class="text-muted">
-
-© 2026 MovieHub
-
-</span>
-
-<span class="text-muted">
-
-Built with Node.js • Express • Prisma • PostgreSQL
-
-</span>
-
-</div>
-
-</div>
-
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

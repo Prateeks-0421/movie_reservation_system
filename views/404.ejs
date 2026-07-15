@@ -2,188 +2,164 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found | MovieHub</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        html, body {
+            height: 100%;
+        }
 
-<meta charset="UTF-8">
+        body {
+            display: flex;
+            flex-direction: column;
+            background: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: #0f0f0f;
+            -webkit-font-smoothing: antialiased;
+        }
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 0;
+        }
 
-<title>404 | Page Not Found</title>
+        .error-container {
+            width: 100%;
+            max-width: 440px;
+            margin: auto;
+            text-align: center;
+            padding: 0 16px;
+        }
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
- <link rel="stylesheet" href="/css/style.css">
+        .status-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #0f0f0f;
+            letter-spacing: -0.3px;
+            margin-top: 16px;
+        }
 
-<style>
+        .status-desc {
+            font-size: 14px;
+            color: #606060;
+            margin-top: 6px;
+            line-height: 1.5;
+            margin-bottom: 28px;
+        }
 
-html,
-body{
+        /* Clean information panel matching global forms */
+        .info-panel {
+            background-color: #f9f9f9;
+            border: 1px solid #efefef;
+            border-radius: 6px;
+            padding: 18px;
+            text-align: left;
+            margin-bottom: 32px;
+            font-size: 13px;
+            color: #606060;
+            line-height: 1.6;
+        }
 
-    height:100%;
+        /* Platform action buttons */
+        .btn-platform {
+            font-size: 13px;
+            font-weight: 500;
+            background: #0f0f0f;
+            color: #ffffff;
+            border-radius: 18px;
+            padding: 8px 20px;
+            border: none;
+            transition: background 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-}
+        .btn-platform:hover {
+            background: #272727;
+            color: #ffffff;
+        }
 
-body{
+        .btn-platform-outline {
+            font-size: 13px;
+            font-weight: 500;
+            color: #0f0f0f;
+            border: 1px solid #d3d3d3;
+            border-radius: 18px;
+            padding: 7px 20px;
+            transition: background 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-    background:#f8f9fb;
+        .btn-platform-outline:hover {
+            background: #f2f2f2;
+            color: #0f0f0f;
+        }
 
-    display:flex;
+        footer {
+            background: #ffffff;
+            border-top: 1px solid #efefef;
+            font-size: 12px;
+        }
 
-    flex-direction:column;
-
-}
-
-main{
-
-    flex:1;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-}
-
-.error-card{
-
-    background:white;
-
-    border:none;
-
-    border-radius:20px;
-
-    box-shadow:0 10px 30px rgba(0,0,0,.08);
-
-    padding:60px;
-
-    max-width:650px;
-
-    text-align:center;
-
-}
-
-.error-code{
-
-    font-size:7rem;
-
-    font-weight:700;
-
-    color:#ffc107;
-
-    line-height:1;
-
-}
-
-.error-title{
-
-    font-weight:700;
-
-    margin-top:20px;
-
-    color:#212529;
-
-}
-
-.error-text{
-
-    color:#6c757d;
-
-    margin-top:15px;
-
-    margin-bottom:35px;
-
-    font-size:1.05rem;
-
-}
-
-.btn-home{
-
-    background:#ffc107;
-
-    border:none;
-
-    color:#212529;
-
-    font-weight:600;
-
-    padding:12px 28px;
-
-    border-radius:10px;
-
-}
-
-.btn-home:hover{
-
-    background:#ffca2c;
-
-}
-
-</style>
-
+        .footer-text {
+            color: #606060;
+        }
+    </style>
 </head>
 
 <body>
 
-<%- include("partials/navbar") %>
+    
 
-<main>
+    <main>
+        <div class="error-container">
 
-<div class="error-card">
+            <!-- Clean Alert Icon Header -->
+            <div class="mb-2">
+                <svg width="36" height="36" fill="none" stroke="#606060" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+                </svg>
+            </div>
+            
+            <h1 class="status-title">Page Not Found</h1>
+            <p class="status-desc">The specific path index requested could not be resolved by the server router.</p>
 
-<div class="error-code">
+            <!-- Text Warning Component -->
+            <div class="info-panel">
+                <strong>Notice:</strong> The endpoint may have been modified, unmapped, or structural changes might have broken the link layout. Verify your parameter input data or return to the main route dashboard.
+            </div>
 
-404
+            <!-- Context Actions -->
+            <div class="d-flex justify-content-center gap-2">
+                <a href="/" class="btn-platform">
+                    Go Home
+                </a>
+                <a href="/movies" class="btn-platform-outline">
+                    Browse Catalog
+                </a>
+            </div>
 
-</div>
+        </div>
+    </main>
 
-<h2 class="error-title">
+    <footer class="py-3 text-center">
+        <div class="container">
+            <span class="footer-text">© 2026 MovieHub</span>
+        </div>
+    </footer>
 
-Page Not Found
-
-</h2>
-
-<p class="error-text">
-
-The page you are looking for doesn't exist or may have been moved.
-Please check the URL or return to the homepage.
-
-</p>
-
-<div class="d-flex justify-content-center gap-3">
-
-<a
-href="/"
-class="btn btn-home">
-
-Home
-
-</a>
-
-<a
-href="/movies"
-class="btn btn-outline-dark">
-
-Browse Movies
-
-</a>
-
-</div>
-
-</div>
-
-</main>
-
-<footer class="text-center py-3 border-top bg-white">
-
-<span class="text-muted">
-
-© 2026 MovieHub
-
-</span>
-
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

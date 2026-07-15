@@ -1,127 +1,195 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OTP Verification</title>
-
+    <title>OTP Verification | MovieHub</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
     <style>
-
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-            font-family:Arial, Helvetica, sans-serif;
+        html, body {
+            height: 100%;
         }
 
-        body{
-            height:100vh;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            background:linear-gradient(135deg,#74ebd5,#9face6);
+        body {
+            display: flex;
+            flex-direction: column;
+            background: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: #0f0f0f;
+            -webkit-font-smoothing: antialiased;
         }
 
-        .otp-container{
-            background:white;
-            width:420px;
-            padding:40px;
-            border-radius:15px;
-            box-shadow:0 10px 25px rgba(0,0,0,0.2);
-            text-align:center;
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 0;
         }
 
-        h1{
-            margin-bottom:15px;
-            color:#333;
+        .auth-container {
+            width: 100%;
+            max-width: 360px;
+            margin: auto;
+            padding: 0 16px;
         }
 
-        .message{
-            margin-bottom:25px;
-            color:#666;
-            line-height:1.5;
+        .auth-header {
+            margin-bottom: 24px;
         }
 
-        input{
-            width:100%;
-            padding:12px;
-            border:1px solid #ccc;
-            border-radius:8px;
-            font-size:16px;
-            margin-bottom:20px;
-            outline:none;
+        .auth-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #0f0f0f;
+            letter-spacing: -0.3px;
         }
 
-        input:focus{
-            border-color:#4f46e5;
-            box-shadow:0 0 5px rgba(79,70,229,0.4);
+        .auth-desc {
+            font-size: 13px;
+            color: #606060;
+            margin-top: 6px;
+            line-height: 1.5;
         }
 
-        button{
-            width:100%;
-            padding:12px;
-            border:none;
-            border-radius:8px;
-            background:rgb(233, 180, 21);
-            color:white;
-            font-size:16px;
-            cursor:pointer;
-            transition:all 0.3s ease;
+        .target-email {
+            color: #0f0f0f;
+            font-weight: 500;
         }
 
-        button:hover{
-            transform:translateY(-2px);
-            background:rgb(193, 148, 16);
+        /* Clean Minimalist Fields */
+        .form-group-custom {
+            margin-bottom: 20px;
         }
 
-        .error{
-            margin-top:15px;
-            color:red;
-            font-weight:bold;
+        .form-label-custom {
+            font-size: 12px;
+            font-weight: 500;
+            color: #606060;
+            margin-bottom: 6px;
+            display: block;
         }
 
+        .form-control-custom {
+            width: 100%;
+            font-size: 14px;
+            padding: 10px 12px;
+            background: #ffffff;
+            border: 1px solid #d3d3d3;
+            border-radius: 6px;
+            color: #0f0f0f;
+            transition: border-color 0.15s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .form-control-custom:focus {
+            outline: none;
+            border-color: #0f0f0f;
+            box-shadow: none;
+        }
+
+        /* Primary System Button */
+        .btn-platform {
+            font-size: 13px;
+            font-weight: 500;
+            background: #0f0f0f;
+            color: #ffffff;
+            border-radius: 20px;
+            padding: 10px 20px;
+            border: none;
+            transition: background 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-platform:hover {
+            background: #272727;
+            color: #ffffff;
+        }
+
+        /* Coordinated Danger Banner */
+        .alert-custom-error {
+            background-color: #fdf2f2;
+            border: 1px solid #fde8e8;
+            color: #9b1c1c;
+            font-size: 13px;
+            border-radius: 6px;
+            padding: 10px 14px;
+            margin-bottom: 20px;
+        }
+
+        footer {
+            background: #ffffff;
+            border-top: 1px solid #efefef;
+            font-size: 12px;
+        }
+
+        .footer-text {
+            color: #606060;
+        }
     </style>
-
 </head>
+
 <body>
 
-    <div class="otp-container">
-
-        <h1>OTP Verification</h1>
-
-        <p class="message">
-            Enter the OTP sent to<br>
-            <strong><%= email %></strong>
-        </p>
-
-        <form action="/otp/setotp" method="POST">
-
-            <input
-                type="hidden"
-                name="email"
-                value="<%= email %>"
-            />
-
-            <input
-                type="text"
-                name="otp"
-                placeholder="Enter 6-digit OTP"
-                required
-            />
-
-            <button type="submit">
-                Verify OTP
-            </button>
-
-        </form>
-
-        <% if(locals.error){ %>
-            <div class="error">
-                <%= error %>
+    <main>
+        <div class="auth-container">
+            
+            <div class="auth-header">
+                <h1 class="auth-title">Security Verification</h1>
+                <p class="auth-desc">
+                    Enter the authentication otp issued to <span class="target-email"><%= email %></span>.
+                </p>
             </div>
-        <% } %>
 
-    </div>
+            <% if(locals.error){ %>
+                <div class="alert alert-custom-error d-flex align-items-center" role="alert">
+                    <svg class="flex-shrink-0 me-2" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                        <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+                    </svg>
+                    <span><%= error %></span>
+                </div>
+            <% } %>
 
+            <form action="/otp/setotp" method="POST">
+                <input type="hidden" name="email" value="<%= email %>" />
+
+                <div class="form-group-custom">
+                    <label for="otp" class="form-label-custom">Verification Code</label>
+                    <input 
+                        type="text" 
+                        class="form-control-custom" 
+                        id="otp" 
+                        name="otp" 
+                        placeholder="Enter 6-digit code" 
+                        maxlength="6"
+                        pattern="\d{6}"
+                        inputmode="numeric"
+                        required 
+                        autocomplete="one-time-code"
+                    >
+                </div>
+
+                <button type="submit" class="btn-platform w-100">
+                    Confirm Code
+                </button>
+            </form>
+
+        </div>
+    </main>
+
+    <footer class="py-3 text-center">
+        <div class="container">
+            <span class="footer-text">© 2026 MovieHub</span>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

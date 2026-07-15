@@ -2,503 +2,420 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Book Tickets | MovieHub</title>
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-     <link rel="stylesheet" href="/css/style.css">
-
+    <link rel="stylesheet" href="/css/style.css">
     <style>
-
-        body{
-            background:#f5f6fa;
+        body {
+            background: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: #0f0f0f;
+            -webkit-font-smoothing: antialiased;
         }
 
-        .poster{
-            height:420px;
-            object-fit:contain;
-            background:white;
+        .wrapper {
+            max-width: 1050px;
+            margin: auto;
         }
 
-        .seat{
-            width:50px;
-            height:50px;
-            border:2px solid #28a745;
-            border-radius:10px;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            cursor:pointer;
-            font-weight:bold;
-            transition:.2s;
-            user-select:none;
+        .page-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #0f0f0f;
+            letter-spacing: -0.3px;
         }
 
-      .booked{
-
-background:#dc3545;
-
-border-color:#dc3545;
-
-color:white;
-
-cursor:not-allowed;
-
-pointer-events:none;
-
-opacity:.8;
-
-} 
-
-        .seat:hover{
-            background:#28a745;
-            color:white;
+        /* Movie Spec Column */
+        .session-panel {
+            padding-right: 20px;
         }
 
-        .selected{
-            background:#ffc107 !important;
-            border-color:#ffc107 !important;
-            color:black !important;
+        .poster-frame {
+            width: 100%;
+            height: 280px;
+            border-radius: 6px;
+            overflow: hidden;
+            background: #f8f9fa;
+            border: 1px solid #efefef;
+            margin-bottom: 16px;
         }
 
+        .poster-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .movie-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0f0f0f;
+            margin-bottom: 6px;
+        }
+
+        .ui-tag {
+            font-size: 11px;
+            font-weight: 500;
+            padding: 3px 8px;
+            border-radius: 4px;
+            background: #f2f2f2;
+            color: #606060;
+            display: inline-block;
+        }
+
+        .meta-group {
+            font-size: 13px;
+            color: #606060;
+            margin-top: 16px;
+            line-height: 1.6;
+        }
+
+        .meta-label {
+            color: #909090;
+            font-weight: 400;
+            margin-right: 4px;
+        }
+
+        /* Seat Grid Mapping Module */
+        .workspace-panel {
+            border-left: 1px solid #efefef;
+            padding-left: 40px;
+        }
+
+        .screen-indicator {
+            text-align: center;
+            font-size: 11px;
+            font-weight: 600;
+            color: #909090;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-top: 2px solid #e5e5e5;
+            padding-top: 6px;
+            margin-bottom: 32px;
+            margin-top: 12px;
+        }
+
+        .seat-grid-container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 12px;
+        }
+
+        .seat {
+            width: 36px;
+            height: 36px;
+            border: 1px solid #d3d3d3;
+            border-radius: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 500;
+            color: #606060;
+            transition: all 0.15s ease;
+            user-select: none;
+            background: #ffffff;
+        }
+
+        .seat:hover {
+            border-color: #0f0f0f;
+            color: #0f0f0f;
+        }
+
+        .seat.booked {
+            background: #f5f5f5;
+            border-color: #e5e5e5;
+            color: #d3d3d3;
+            cursor: not-allowed;
+            pointer-events: none;
+            text-decoration: line-through;
+        }
+
+        .seat.selected {
+            background: #0f0f0f !important;
+            border-color: #0f0f0f !important;
+            color: #ffffff !important;
+        }
+
+        /* Transaction Summary Pane */
+        .summary-pane {
+            background: #f9f9f9;
+            border-radius: 6px;
+            padding: 16px;
+            margin-top: 24px;
+            font-size: 13px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+
+        .summary-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .summary-total {
+            font-size: 15px;
+            font-weight: 600;
+            color: #0f0f0f;
+            border-top: 1px solid #e5e5e5;
+            padding-top: 8px;
+            margin-top: 8px;
+        }
+
+        .btn-platform {
+            font-size: 13px;
+            font-weight: 500;
+            background: #0f0f0f;
+            color: #ffffff;
+            border-radius: 18px;
+            padding: 8px 16px;
+            border: none;
+            transition: background 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-platform:hover {
+            background: #272727;
+            color: #ffffff;
+        }
+
+        .alert-custom-error {
+            background-color: #fdf2f2;
+            border: 1px solid #fde8e8;
+            color: #9b1c1c;
+            font-size: 13px;
+            border-radius: 6px;
+            padding: 10px 16px;
+        }
+
+        @media (max-width: 991px) {
+            .workspace-panel {
+                border-left: none;
+                padding-left: 12px;
+                margin-top: 40px;
+            }
+            .session-panel {
+                padding-right: 12px;
+            }
+        }
     </style>
-
 </head>
 
 <body>
 
-<%- include("partials/navbar") %>
-
-
-        <% if(locals.error){  %>
-            <div class="alert alert-danger mt-3 ms-3 me-3" role="alert">
-              <%= error %>
-             </div>
-            <% } %>
-
-<div class="container py-5">
-
-<div class="row">
-
-<div class="col-lg-4">
-
-<div class="card shadow border-0">
-
-<img
-src="<%= show.movie.posterurl %>"
-class="poster card-img-top"
-style="object-fit:cover;">
-
-<div class="card-body">
-
-<h3 class="fw-bold">
-
-<%= show.movie.title %>
-
-</h3>
-
-<span class="badge bg-warning text-dark">
-
-<%= show.movie.genre %>
-
-</span>
-
-<span class="badge bg-dark">
-
-<%= show.movie.language %>
-
-</span>
-
-<hr>
-
-<p>
-
-📅
-
-<%= new Date(show.showdate).toLocaleDateString() %>
-
-</p>
-
-<p>
-
-🕒
-
-<%= new Date(show.showtime).toLocaleTimeString([],{
-hour:"2-digit",
-minute:"2-digit"
-}) %>
-
-</p>
-
-<p>
-
-🎥 Screen <%= show.screen %>
-
-</p>
-
-<p>
-
-💰 ₹<%= show.price %> / Seat
-
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="col-lg-8">
-
-<div class="card shadow border-0">
-
-<div class="card-body">
-
-<h2 class="fw-bold mb-4">
-
-Select Your Seats
-
-</h2>
-
-<%
-const seatsPerRow = 10 ;
-const totalRows = Math.ceil(show.totalSeats / seatsPerRow);
-%>
-
-<div class="d-flex flex-column gap-3">
-
-<% for(let r = 0; r < totalRows; r++){ %>
-
-<div class="d-flex justify-content-center gap-2">
-
-<%
-const rowLetter = String.fromCharCode(65 + r);
-
-for(let c = 1; c <= seatsPerRow; c++){
-
-    const seatNumber = r * seatsPerRow + c;
-
-    if(seatNumber > show.totalSeats) break;
-%>
-
-<div
-    class="seat <%= bookedSeats.includes(rowLetter + c) ? 'booked' : '' %>"
-    data-seat="<%= rowLetter + c %>">
-
-    <%= rowLetter + c %>
-
-</div>
-
-<% } %>
-
-</div>
-
-<% } %>
-
-</div>
-
-
-<hr class="my-4">
-
-<h5>
-
-Selected Seats:
-
-<span id="selectedSeats">
-
-None
-
-</span>
-
-</h5>
-
-<h4 class="mt-3">
-
-Total :
-
-₹
-
-<span id="totalPrice">
-
-0
-
-</span>
-
-</h4>
-
-<form id="bookingform">
-
-<input
-type="hidden"
-name="seats"
-id="seatInput">
-
-<button
-class="btn btn-warning btn-lg mt-4 fw-bold">
-
-Proceed to payment 
-
-</button>
-
-</form>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<script>
-
-const price = <%= show.price %>;
-
-const seats=[];
-
-const allSeats=document.querySelectorAll(".seat");
-
-const seatInput=document.getElementById("seatInput");
-
-const selected=document.getElementById("selectedSeats");
-
-const total=document.getElementById("totalPrice");
-
-allSeats.forEach(seat=>{
-
-seat.addEventListener("click",()=>{
-
-seat.classList.toggle("selected");
-
-const value=seat.dataset.seat;
-
-if(seats.includes(value)){
-
-seats.splice(seats.indexOf(value),1);
-
-}else{
-
-seats.push(value);
-
-}
-
-selected.innerText=seats.length?seats.join(", "):"None"; 
-
-total.innerText=seats.length*price;
-
-seatInput.value=seats.join(",");
-
-});
-
-});
-
-const form = document.getElementById("bookingform");
-
-form.addEventListener("submit", async (e) => {
-
-    e.preventDefault();
-
-    if (seats.length === 0) {
-
-  Swal.fire({
-
-    toast: true,
-
-    position: "top-end",
-
-    icon: "warning",
-
-    title: "Please select at least one seat",
-
-    showConfirmButton: false,
-
-    timer: 3000
-
-});
-
-        return;
-
-    }
-
-    const response = await fetch("/payment/create-order/<%= show.id %>", {
-
-        method: "POST",
-
-        headers: {
-
-            "Content-Type": "application/json"
-
-        },
-
-        body: JSON.stringify({
-
-            seats: seatInput.value
-
-        })
-
-    });
-
-    const data = await response.json();
-
-    if (!data.success) {
-
-        // alert(data.message);
-
-        Swal.fire({
-
-    toast: true,
-
-    position: "top-end",
-
-    icon: "warning",
-
-    title: data.message ,
-
-    showConfirmButton: false,
-
-    timer: 3000
-
-});
-
-        return;
-
-    }
-
-    const options = {
-
-        key: "<%= key_id %>",
-
-        amount: data.order.amount,
-
-        currency: data.order.currency,
-
-        name: "MovieHub",
-
-        description: "<% show.movie.title %>",
-
-        image: "<%show.movie.posterurl%>",
-
-        order_id: data.order.id,
-
-        handler: async function (response) {
-
-            const verify = await fetch("/payment/verify", {
-
+    <%- include("partials/navbar") %>
+
+    <% if(locals.error){ %>
+        <div class="container mt-3">
+            <div class="alert alert-custom-error" role="alert">
+                <%= error %>
+            </div>
+        </div>
+    <% } %>
+
+    <div class="container py-5">
+        <div class="wrapper">
+            <div class="row">
+
+                <!-- Left Sidebar: Session Details -->
+                <div class="col-lg-4 session-panel">
+                    <div class="poster-frame">
+                        <img src="<%= show.movie.posterurl %>" class="poster-img" alt="Poster">
+                    </div>
+                    
+                    <h2 class="movie-name"><%= show.movie.title %></h2>
+                    <div class="d-flex gap-2">
+                        <span class="ui-tag"><%= show.movie.genre %></span>
+                        <span class="ui-tag"><%= show.movie.language %></span>
+                    </div>
+
+                    <div class="meta-group">
+                        <div><span class="meta-label">Date:</span> <%= new Date(show.showdate).toLocaleDateString("en-IN", { day: 'numeric', month: 'short', year: 'numeric' }) %></div>
+                        <div><span class="meta-label">Time:</span> <%= new Date(show.showtime).toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" }) %></div>
+                        <div><span class="meta-label">Theater Allocation:</span> Screen <%= show.screen %></div>
+                        <div><span class="meta-label">Unit Value:</span> ₹<%= show.price %> per seat</div>
+                    </div>
+                </div>
+
+                <!-- Right Workspace: Grid Matrix & Checkout -->
+                <div class="col-lg-8 workspace-panel">
+                    <h1 class="page-title mb-2">Seat Assignment</h1>
+                    <div class="screen-indicator">Screen Stage Direction</div>
+
+                    <%
+                    const seatsPerRow = 10;
+                    const totalRows = Math.ceil(show.totalSeats / seatsPerRow);
+                    %>
+
+                    <div class="seat-grid-container">
+                        <% for(let r = 0; r < totalRows; r++){ %>
+                            <div class="d-flex justify-content-center gap-2">
+                                <%
+                                const rowLetter = String.fromCharCode(65 + r);
+                                for(let c = 1; c <= seatsPerRow; c++){
+                                    const seatNumber = r * seatsPerRow + c;
+                                    if(seatNumber > show.totalSeats) break;
+                                    const seatId = rowLetter + c;
+                                %>
+                                    <div class="seat <%= bookedSeats.includes(seatId) ? 'booked' : '' %>" data-seat="<%= seatId %>">
+                                        <%= seatId %>
+                                    </div>
+                                <% } %>
+                            </div>
+                        <% } %>
+                    </div>
+
+                    <!-- Transaction Summary Container -->
+                    <div class="summary-pane">
+                        <div class="summary-row">
+                            <span class="meta-label">Selected Seats:</span>
+                            <span id="selectedSeats" class="fw-medium text-dark">None</span>
+                        </div>
+                        <div class="summary-row summary-total">
+                            <span>Aggregate Amount:</span>
+                            <span>₹<span id="totalPrice">0</span></span>
+                        </div>
+                    </div>
+
+                    <form id="bookingform" class="mt-4">
+                        <input type="hidden" name="seats" id="seatInput">
+                        <button class="btn-platform w-100 py-2">
+                            Book Ticket
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const price = <%= show.price %>;
+        const seats = [];
+        const allSeats = document.querySelectorAll(".seat");
+        const seatInput = document.getElementById("seatInput");
+        const selected = document.getElementById("selectedSeats");
+        const total = document.getElementById("totalPrice");
+
+        allSeats.forEach(seat => {
+            seat.addEventListener("click", () => {
+                seat.classList.toggle("selected");
+                const value = seat.dataset.seat;
+
+                if (seats.includes(value)) {
+                    seats.splice(seats.indexOf(value), 1);
+                } else {
+                    seats.push(value);
+                }
+
+                selected.innerText = seats.length ? seats.join(", ") : "None";
+                total.innerText = seats.length * price;
+                seatInput.value = seats.join(",");
+            });
+        });
+
+        const form = document.getElementById("bookingform");
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            if (seats.length === 0) {
+                Swal.fire({
+                    toast: true,
+                    position: "top-end",
+                    icon: "warning",
+                    title: "Please select at least one seat",
+                    showConfirmButton: false,
+                    timer: 3000
+                });
+                return;
+            }
+
+            const response = await fetch("/payment/create-order/<%= show.id %>", {
                 method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ seats: seatInput.value })
+            });
 
-                headers: {
+            const data = await response.json();
 
-                    "Content-Type": "application/json"
+            if (!data.success) {
+                Swal.fire({
+                    toast: true,
+                    position: "top-end",
+                    icon: "warning",
+                    title: data.message,
+                    showConfirmButton: false,
+                    timer: 3000
+                });
+                return;
+            }
 
+            const options = {
+                key: "<%= key_id %>",
+                amount: data.order.amount,
+                currency: data.order.currency,
+                name: "MovieHub",
+                description: "<%= show.movie.title %>",
+                image: "<%= show.movie.posterurl %>",
+                order_id: data.order.id,
+                handler: async function (response) {
+                    const verify = await fetch("/payment/verify", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            razorpay_order_id: response.razorpay_order_id,
+                            razorpay_payment_id: response.razorpay_payment_id,
+                            razorpay_signature: response.razorpay_signature,
+                            showtimeid: <%= show.id %>,
+                            seats: seatInput.value
+                        })
+                    });
+
+                    const result = await verify.json();
+
+                    if (result.success) {
+                        Swal.fire({
+                            toast: true,
+                            position: "top-end",
+                            icon: "success",
+                            title: "Payment completed successfully",
+                            showConfirmButton: false,
+                            timer: 3000
+                        });
+                        window.location.href = "/payment/success/" + result.id;
+                    } else {
+                        Swal.fire({
+                            toast: true,
+                            position: "top-end",
+                            icon: "error",
+                            title: "Something went wrong",
+                            showConfirmButton: false,
+                            timer: 3000
+                        });
+                        window.location.href = "/payment/failed";
+                    }
                 },
+                theme: { color: "#000000" }
+            };
 
-                body: JSON.stringify({
+            const rzp = new Razorpay(options);
+            rzp.open();
+        });
+    </script>
 
-                    razorpay_order_id: response.razorpay_order_id,
-
-                    razorpay_payment_id: response.razorpay_payment_id,
-
-                    razorpay_signature: response.razorpay_signature,
-
-                    showtimeid: <%= show.id %>,
-
-                    seats: seatInput.value
-
-                })
-
-            });
-
-            const result = await verify.json();
-
-            if (result.success) {
-
-                Swal.fire({
-
-          toast: true,
-
-           position: "top-end",
-
-               icon: "success",
-
-              title: "Payment completed successfully",
-
-              showConfirmButton: false,
-
-               timer: 3000
-
-});
-
-                window.location.href = "/payment/success/" + result.id ;
-
-            }
-
-            else {
-
-                
-                Swal.fire({
-
-                toast: true,
-
-                position: "top-end",
-
-               icon: "error",
-
-               title: "Something went wrong",
-
-               showConfirmButton: false,
-
-               timer: 3000
-
-            });
-
-                  window.location.href = "/payment/failed" ;
-
-            }
-
-        },
-
-        theme: {
-
-            color: "#FFC107"
-
-        }
-
-    };
-
-    const rzp = new Razorpay(options);
-
-    rzp.open();
-
-});
-
-</script>
-
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

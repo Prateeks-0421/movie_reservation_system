@@ -1,112 +1,150 @@
-<nav class="navbar navbar-expand-lg navbar-dark shadow-sm py-3"
-     style="background-color:#222831;">
-  <div class="container">
+<style>
+    .navbar-custom {
+        background: #f0f6f6; /* Soft, muted slate-aqua distinct background */
+        border-bottom: 1px solid #e1e8e8;
+        padding-top: 14px;
+        padding-bottom: 14px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
 
-    <a class="navbar-brand fw-bold fs-4 text-warning" href="/">
-      🎥 MovieHub
-    </a>
+    .brand-text {
+        font-size: 18px;
+        font-weight: 700;
+        color: #0f0f0f;
+        letter-spacing: -0.4px;
+        text-decoration: none;
+    }
 
-    <button class="navbar-toggler border-0" type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarNav">
+    .brand-text:hover {
+        color: #0f0f0f;
+    }
 
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    .nav-link-custom {
+        font-size: 13px;
+        font-weight: 500;
+        color: #556060;
+        transition: color 0.15s ease;
+        padding: 6px 12px;
+    }
 
-    <div class="collapse navbar-collapse" id="navbarNav">
+    .nav-link-custom:hover {
+        color: #0f0f0f; /* High contrast monochromatic dark hover */
+    }
 
-      <ul class="navbar-nav me-auto ms-4">
+    /* Dropdown alignment */
+    .dropdown-menu-custom {
+        border: 1px solid #e1e8e8;
+        border-radius: 6px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+        padding: 6px 0;
+        margin-top: 8px;
+        background: #ffffff;
+    }
 
-        <li class="nav-item mx-2">
-          <a class="nav-link text-light fw-semibold" href="/">
-            Home
-          </a>
-        </li>
+    .dropdown-item-custom {
+        font-size: 13px;
+        font-weight: 500;
+        color: #556060;
+        padding: 8px 16px;
+    }
 
-        <li class="nav-item mx-2">
-          <a class="nav-link text-light fw-semibold" href="/movies">
-            Movies
-          </a>
-        </li>
+    .dropdown-item-custom:hover {
+        background-color: #f0f6f6;
+        color: #0f0f0f;
+    }
 
-      </ul>
+    .dropdown-item-danger {
+        color: #9b1c1c;
+    }
 
-      <ul class="navbar-nav align-items-center">
+    .dropdown-item-danger:hover {
+        background-color: #fdf2f2;
+        color: #9b1c1c;
+    }
 
-        <% if(locals.user){ %>
+    .divider-custom {
+        border-top: 1px solid #e1e8e8;
+        margin: 4px 0;
+    }
 
-          <% if(user.role == "ADMIN"){ %>
+    /* Primary execution button element matching the design language */
+    .btn-platform {
+        font-size: 13px;
+        font-weight: 500;
+        background: #0f0f0f;
+        color: #ffffff;
+        border-radius: 16px;
+        padding: 6px 16px;
+        border: none;
+        transition: background 0.2s;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-                      <li class="nav-item mx-2">
-          <a class="nav-link text-light fw-semibold" href="/movies/add">
-            Add movies
-          </a>
-               </li>
+    .btn-platform:hover {
+        background: #272727;
+        color: #ffffff;
+    }
+</style>
 
-             <li class="nav-item mx-2">
-          <a class="nav-link text-light fw-semibold" href="/admin/dashboard">
-            Dashboard
-          </a>
-               </li>
+<nav class="navbar navbar-expand-lg navbar-custom">
+    <div class="container">
 
-            <% } %>
+        <a class="brand-text" href="/">MovieHub</a>
 
-          <li class="nav-item dropdown">
+        <button class="navbar-toggler border-0 p-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon" style="transform: scale(0.85); filter: contrast(0.8);"></span>
+        </button>
 
-            <a class="nav-link dropdown-toggle d-flex align-items-center fw-semibold text-light"
-              href=""
-              id="userDropdown"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false">
-
-              👤&nbsp;<%= user.name %>
-
-            </a>
-
-            <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-3 mt-2"
-                aria-labelledby="userDropdown">
-
-              <li>
-                <a class="dropdown-item py-2" href="/reservations">
-                  🎟 My Reservations
-                </a>
-              </li>
-
-              <li><hr class="dropdown-divider"></li>
-
-              <li>
-                <a class="dropdown-item text-danger py-2" href="/auth/logout">
-                  🚪 Logout
-                </a>
-              </li>
-
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto ms-lg-4 mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link nav-link-custom" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-custom" href="/movies">Movies</a>
+                </li>
             </ul>
 
-          </li>
+            <ul class="navbar-nav align-items-lg-center ms-auto mt-2 mt-lg-0">
+                <% if(locals.user){ %>
+                    
+                    <% if(user.role == "ADMIN"){ %>
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-custom" href="/movies/add">+ Add Entry</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-custom me-lg-2" href="/admin/dashboard">Dashboard</a>
+                        </li>
+                    <% } %>
 
-        <% } else { %>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle nav-link-custom d-flex align-items-center" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <%= user.name %>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-custom" aria-labelledby="userDropdown">
+                            <li>
+                                <a class="dropdown-item dropdown-item-custom" href="/reservations">Reservations</a>
+                            </li>
+                            <li><div class="divider-custom"></div></li>
+                            <li>
+                                <a class="dropdown-item dropdown-item-custom dropdown-item-danger" href="/auth/logout">Logout</a>
+                            </li>
+                        </ul>
+                    </li>
 
-          <li class="nav-item me-2">
-            <a class="nav-link text-light fw-semibold" href="/auth/login">
-              Login
-            </a>
-          </li>
-
-          <li class="nav-item ms-2">
-            <a class="btn btn-warning px-4 fw-semibold rounded-pill"
-               href="/auth/signup">
-
-              Sign Up
-
-            </a>
-          </li>
-
-        <% } %>
-
-      </ul>
+                <% } else { %>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-custom me-lg-2" href="/auth/login">Login</a>
+                    </li>
+                    <li class="nav-item mt-2 mt-lg-0">
+                        <a class="btn-platform" href="/auth/signup">Sign Up</a>
+                    </li>
+                <% } %>
+            </ul>
+        </div>
 
     </div>
-
-  </div>
 </nav>

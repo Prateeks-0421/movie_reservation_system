@@ -2,140 +2,219 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmed | MovieHub</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body {
+            background: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: #0f0f0f;
+            -webkit-font-smoothing: antialiased;
+        }
 
-<meta charset="UTF-8">
+        .wrapper {
+            max-width: 550px;
+            margin: auto;
+            text-align: center;
+        }
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        .success-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #0f0f0f;
+            letter-spacing: -0.3px;
+            margin-top: 12px;
+        }
 
-<title>Payment Successful</title>
+        .success-desc {
+            font-size: 14px;
+            color: #606060;
+            margin-top: 4px;
+            margin-bottom: 32px;
+        }
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+        /* Clean receipt structure */
+        .receipt-card {
+            border: 1px solid #efefef;
+            border-radius: 8px;
+            padding: 24px;
+            text-align: left;
+            margin-bottom: 28px;
+        }
 
+        .receipt-header {
+            display: flex;
+            gap: 16px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #efefef;
+            margin-bottom: 20px;
+        }
+
+        .poster-frame {
+            width: 70px;
+            height: 100px;
+            border-radius: 4px;
+            overflow: hidden;
+            background: #f8f9fa;
+            border: 1px solid #efefef;
+            flex-shrink: 0;
+        }
+
+        .poster-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .movie-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #0f0f0f;
+            margin-top: 4px;
+            margin-bottom: 4px;
+        }
+
+        .booking-id {
+            font-size: 12px;
+            color: #909090;
+        }
+
+        /* Compact data row details */
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            padding: 6px 0;
+            color: #606060;
+        }
+
+        .detail-label {
+            color: #909090;
+        }
+
+        .detail-value {
+            font-weight: 500;
+            color: #0f0f0f;
+        }
+
+        .total-row {
+            border-top: 1px solid #efefef;
+            margin-top: 12px;
+            padding-top: 12px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* Custom buttons matching the platform */
+        .btn-platform {
+            font-size: 13px;
+            font-weight: 500;
+            background: #0f0f0f;
+            color: #ffffff;
+            border-radius: 18px;
+            padding: 8px 20px;
+            border: none;
+            transition: background 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-platform:hover {
+            background: #272727;
+            color: #ffffff;
+        }
+
+        .btn-platform-outline {
+            font-size: 13px;
+            font-weight: 500;
+            color: #0f0f0f;
+            border: 1px solid #d3d3d3;
+            border-radius: 18px;
+            padding: 7px 20px;
+            transition: background 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-platform-outline:hover {
+            background: #f2f2f2;
+            color: #0f0f0f;
+        }
+    </style>
 </head>
 
-<body class="bg-light">
+<body>
 
-<%- include("partials/navbar") %>
+    <%- include("partials/navbar") %>
 
-<div class="container py-5">
+    <div class="container py-5">
+        <div class="wrapper">
 
-<div class="row justify-content-center">
+            <!-- Confirmation Status -->
+            <div class="mb-2">
+                <svg width="36" height="36" fill="none" stroke="#0f0f0f" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+            </div>
+            <h1 class="success-title">Booking Confirmed</h1>
+            <p class="success-desc">Your tickets have been reserved successfully.</p>
 
-<div class="col-lg-7">
+            <!-- Compact Receipt Container -->
+            <div class="receipt-card">
+                
+                <div class="receipt-header">
+                    <div class="poster-frame">
+                        <img src="<%= reservation.showtime.movie.posterurl %>" class="poster-img" alt="Poster">
+                    </div>
+                    <div>
+                        <h2 class="movie-name"><%= reservation.showtime.movie.title %></h2>
+                        <div class="booking-id">ID: #<%= reservation.id %></div>
+                    </div>
+                </div>
 
-<div class="card shadow border-0">
+                <div class="detail-row">
+                    <span class="detail-label">Seats Assigned</span>
+                    <span class="detail-value"><%= reservation.seats %></span>
+                </div>
 
-<div class="card-body text-center p-5">
+                <div class="detail-row">
+                    <span class="detail-label">Date</span>
+                    <span class="detail-value"><%= new Date(reservation.showtime.showdate).toLocaleDateString("en-IN", { day: 'numeric', month: 'short', year: 'numeric' }) %></span>
+                </div>
 
-<h1 class="text-success display-4">
+                <div class="detail-row">
+                    <span class="detail-label">Time</span>
+                    <span class="detail-value"><%= new Date(reservation.showtime.showtime).toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" }) %></span>
+                </div>
 
-</h1>
+                <div class="detail-row total-row">
+                    <span class="text-dark">Amount Paid</span>
+                    <span class="text-dark">₹<%= reservation.totalamount %></span>
+                </div>
 
-<h2 class="fw-bold mb-3">
+            </div>
 
-Payment Successful
+            <!-- Practical Clean Actions -->
+            <div class="d-flex justify-content-center gap-2">
+                <a href="/reservations/download/<%= reservation.id %>" class="btn-platform">
+                    Download Ticket
+                </a>
+                <a href="/reservations" class="btn-platform-outline">
+                    Go to Reservations
+                </a>
+            </div>
 
-</h2>
+        </div>
+    </div>
 
-<p class="text-muted">
-
-Your movie ticket has been booked successfully.
-
-</p>
-
-<hr>
-
-<img
-src="<%= reservation.showtime.movie.posterurl %>"
-class="img-fluid rounded mb-4"
-style="height:300px;object-fit:cover;">
-
-<h3 class="fw-bold">
-
-<%= reservation.showtime.movie.title %>
-
-</h3>
-
-<p>
-
-<b>Booking ID :</b>
-
-#<%= reservation.id %>
-
-</p>
-
-<p>
-
-<b>Seats :</b>
-
-<%= reservation.seats %>
-
-</p>
-
-<p>
-
-<b>Amount Paid :</b>
-
-₹ <%= reservation.totalamount %>
-
-</p>
-
-<p>
-
-<b>Show Date :</b>
-
-<%= new Date(reservation.showtime.showdate).toLocaleDateString() %>
-
-</p>
-
-<p>
-
-<b>Show Time :</b>
-
-<%= new Date(reservation.showtime.showtime).toLocaleTimeString([],{
-
-hour:"2-digit",
-
-minute:"2-digit"
-
-}) %>
-
-</p>
-
-<div class="mt-3">
-
-<a
-href="/reservations/download/<%= reservation.id %>"
-class="btn btn-success btn-lg">
-
-  Download Ticket
-
-</a>
-
-</div>
-
-<div class="mt-4">
-
-<a
-href="/reservations"
-class="btn btn-warning btn-lg">
-
-My Reservations
-
-</a>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

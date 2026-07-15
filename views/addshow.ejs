@@ -1,145 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add ShowTime | MovieHub</title>
-
+    <title>Add Showtime | MovieHub</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body {
+            background: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: #0f0f0f;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .wrapper {
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .page-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #0f0f0f;
+            letter-spacing: -0.3px;
+        }
+
+        .page-desc {
+            font-size: 14px;
+            color: #606060;
+            margin-top: 2px;
+        }
+
+        .target-title {
+            color: #0f0f0f;
+            font-weight: 600;
+        }
+
+        /* Clean Minimal Form Elements */
+        .form-group-custom {
+            margin-bottom: 20px;
+        }
+
+        .form-label-custom {
+            font-size: 12px;
+            font-weight: 500;
+            color: #606060;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .form-control-custom {
+            width: 100%;
+            font-size: 14px;
+            padding: 10px 12px;
+            background: #ffffff;
+            border: 1px solid #d3d3d3;
+            border-radius: 6px;
+            color: #0f0f0f;
+            transition: border-color 0.15s ease;
+        }
+
+        .form-control-custom:focus {
+            outline: none;
+            border-color: #0f0f0f;
+            box-shadow: none;
+        }
+
+        /* Primary System Button */
+        .btn-platform {
+            font-size: 13px;
+            font-weight: 500;
+            background: #0f0f0f;
+            color: #ffffff;
+            border-radius: 20px;
+            padding: 10px 24px;
+            border: none;
+            transition: background 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-platform:hover {
+            background: #272727;
+            color: #ffffff;
+        }
+
+        /* Coordinated Status Alerts */
+        .alert-custom-error {
+            background-color: #fdf2f2;
+            border: 1px solid #fde8e8;
+            color: #9b1c1c;
+            font-size: 13px;
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 24px;
+        }
+    </style>
 </head>
 
-<body class="bg-light">
+<body>
 
     <%- include("partials/navbar") %>
 
-    <div class="container my-5">
-
-        <div class="row justify-content-center">
-
-            <div class="col-lg-7">
-
-                <div class="card shadow-lg border-0 rounded-4">
-
-                    <div class="card-header bg-warning text-dark text-center py-3">
-                        <h2 class="fw-bold mb-0">🎬 Add Show</h2>
-                    </div>
-
-                    <div class="card-body p-5">
-
-                        <% if(typeof error !== "undefined"){ %>
-                            <div class="alert alert-danger">
-                                <%= error %>
-                            </div>
-                        <% } %>
-
-                        <form action="/showtimes/add/<%= movie.id %>" method="POST">
-
-                            <!-- Show Date -->
-                            <div class="mb-4">
-                                <label class="form-label fw-semibold">
-                                    Show Date
-                                </label>
-
-                                <input
-                                    type="date"
-                                    class="form-control form-control-lg"
-                                    name="showdate"
-                                    required>
-                            </div>
-
-                            <!-- Show Time -->
-                            <div class="mb-4">
-                                <label class="form-label fw-semibold">
-                                    Show Time
-                                </label>
-
-                                <input
-                                    type="time"
-                                    class="form-control form-control-lg"
-                                    name="showtime"
-                                    required>
-                            </div>
-
-                            <div class="row">
-
-                                <div class="col-md-6 mb-4">
-
-                                    <label class="form-label fw-semibold">
-                                        Screen Number
-                                    </label>
-
-                                    <input
-                                        type="number"
-                                        class="form-control"
-                                        name="screen"
-                                        min="1"
-                                        placeholder="e.g. 1"
-                                        required>
-
-                                </div>
-
-                                <div class="col-md-6 mb-4">
-
-                                    <label class="form-label fw-semibold">
-                                        Ticket Price (₹)
-                                    </label>
-
-                                    <input
-                                        type="number"
-                                        class="form-control"
-                                        name="price"
-                                        min="1"
-                                        placeholder="e.g. 250"
-                                        required>
-
-                                </div>
-
-                            </div>
-
-                            <div class="mb-4">
-
-                                <label class="form-label fw-semibold">
-                                    Total Seats
-                                </label>
-
-                                <input
-                                    type="number"
-                                    class="form-control"
-                                    name="totalSeats"
-                                    min="1"
-                                    placeholder="e.g. 120"
-                                    required>
-
-                            </div>
-
-                            <div class="d-grid">
-
-                                <button
-                                    type="submit"
-                                    class="btn btn-warning btn-lg fw-bold">
-
-                                    ➕ Create Show
-
-                                </button>
-
-                            </div>
-
-                        </form>
-
-                    </div>
-
-                </div>
-
+    <div class="container py-5">
+        <div class="wrapper">
+            
+            <!-- Context Header Section -->
+            <div class="mb-4 pb-3 border-bottom">
+                <h1 class="page-title">Schedule Showtime</h1>
+                <p class="page-desc">
+                    Add the details of the showtime  <span class="target-title"><%= movie.title %></span>.
+                </p>
             </div>
 
-        </div>
+            <% if(typeof error !== "undefined"){ %>
+                <div class="alert alert-custom-error d-flex align-items-center" role="alert">
+                    <svg class="flex-shrink-0 me-2" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                        <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+                    </svg>
+                    <span><%= error %></span>
+                </div>
+            <% } %>
 
+            <!-- Showtime Scheduling Form Module -->
+            <form action="/showtimes/add/<%= movie.id %>" method="POST">
+                
+                <div class="row g-3">
+                    <div class="col-md-6 form-group-custom">
+                        <label class="form-label-custom">Show Date</label>
+                        <input type="date" class="form-control-custom" name="showdate" required>
+                    </div>
+
+                    <div class="col-md-6 form-group-custom">
+                        <label class="form-label-custom">Show Time Allocation</label>
+                        <input type="time" class="form-control-custom" name="showtime" required>
+                    </div>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md-6 form-group-custom">
+                        <label class="form-label-custom">Screen Number</label>
+                        <input type="number" class="form-control-custom" name="screen" min="1" placeholder="e.g. 1" required>
+                    </div>
+
+                    <div class="col-md-6 form-group-custom">
+                        <label class="form-label-custom">Ticket Price (₹)</label>
+                        <input type="number" class="form-control-custom" name="price" min="1" placeholder="e.g. 250" required>
+                    </div>
+                </div>
+
+                <div class="form-group-custom mb-4">
+                    <label class="form-label-custom">Total Seating Capacity</label>
+                    <input type="number" class="form-control-custom" name="totalSeats" min="1" placeholder="e.g. 120" required>
+                </div>
+
+                <div class="pt-2">
+                    <button type="submit" class="btn-platform w-100 py-2">
+                        Add showtime
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
     </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
+
 </html>

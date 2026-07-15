@@ -1,48 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Movie Reservation System</title>
-
+    <title>Sign In | MovieHub</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-
     <link rel="stylesheet" href="/css/style.css">
+    <style>
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            background: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: #0f0f0f;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 0;
+        }
+
+        .auth-container {
+            width: 100%;
+            max-width: 360px;
+            margin: auto;
+            padding: 0 16px;
+        }
+
+        .auth-header {
+            margin-bottom: 28px;
+        }
+
+        .auth-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #0f0f0f;
+            letter-spacing: -0.3px;
+        }
+
+        .auth-desc {
+            font-size: 13px;
+            color: #606060;
+            margin-top: 4px;
+        }
+
+        /* Clean Minimalist Fields */
+        .form-group-custom {
+            margin-bottom: 16px;
+        }
+
+        .form-label-custom {
+            font-size: 12px;
+            font-weight: 500;
+            color: #606060;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .form-control-custom {
+            width: 100%;
+            font-size: 14px;
+            padding: 10px 12px;
+            background: #ffffff;
+            border: 1px solid #d3d3d3;
+            border-radius: 6px;
+            color: #0f0f0f;
+            transition: border-color 0.15s ease;
+        }
+
+        .form-control-custom:focus {
+            outline: none;
+            border-color: #0f0f0f;
+            box-shadow: none;
+        }
+
+        /* Primary System Button */
+        .btn-platform {
+            font-size: 13px;
+            font-weight: 500;
+            background: #0f0f0f;
+            color: #ffffff;
+            border-radius: 20px;
+            padding: 10px 20px;
+            border: none;
+            transition: background 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-platform:hover {
+            background: #272727;
+            color: #ffffff;
+        }
+
+        /* Coordinated Danger Banner */
+        .alert-custom-error {
+            background-color: #fdf2f2;
+            border: 1px solid #fde8e8;
+            color: #9b1c1c;
+            font-size: 13px;
+            border-radius: 6px;
+            padding: 10px 14px;
+            margin-bottom: 20px;
+        }
+
+        footer {
+            background: #ffffff;
+            border-top: 1px solid #efefef;
+            font-size: 12px;
+        }
+
+        .footer-text {
+            color: #606060;
+        }
+    </style>
 </head>
+
 <body>
 
     <%- include("partials/navbar") %>
 
-       <% if(locals.error){  %>
-            <div class="alert alert-danger mt-3 ms-3 me-3 " role="alert">
-              <%= error %>
-             </div>
+    <main>
+        <div class="auth-container">
+            
+            <div class="auth-header">
+                <h1 class="auth-title">Sign In</h1>
+                <p class="auth-desc">Access secure Movie Booking.</p>
+            </div>
+
+            <% if(locals.error){ %>
+                <div class="alert alert-custom-error d-flex align-items-center" role="alert">
+                    <svg class="flex-shrink-0 me-2" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                        <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+                    </svg>
+                    <span><%= error %></span>
+                </div>
             <% } %>
 
-     <form class="mt-5" method="POST" action="/auth/login">
+            <form method="POST" action="/auth/login">
+                <div class="form-group-custom">
+                    <label for="email" class="form-label-custom">Email Address</label>
+                    <input type="email" class="form-control-custom" id="email" name="email" required autocomplete="username">
+                </div>
+                
+                <div class="form-group-custom mb-4">
+                    <label for="password" class="form-label-custom">Password</label>
+                    <input type="password" class="form-control-custom" id="password" name="password" required autocomplete="current-password">
+                </div>
 
-   <div class="mb-3 ms-3">
-    <label for="exampleInputEmail1" class="form-label">Email address</label>
-    <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name="email" required >
-   </div>
-   <div class="mb-3 ms-3">
-    <label for="exampleInputPassword1" class="form-label">Password</label>
-    <input type="password" class="form-control" id="password" name="password" required>
-   </div>
+                <button type="submit" class="btn-platform w-100">
+                    Login
+                </button>
+            </form>
 
-   <button type="submit" class="btn btn-custom ms-3">Submit</button>
-   </form>
+        </div>
+    </main>
 
-    <footer class="text-center py-4 border-top mt-5">
-        <p class="mb-0">
-            © 2026 Movie Reservation System
-        </p>
+    <footer class="py-3 text-center">
+        <div class="container">
+            <span class="footer-text">© 2026 MovieHub</span>
+        </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-
     <script src="/js/main.js"></script>
-
 </body>
+
 </html>

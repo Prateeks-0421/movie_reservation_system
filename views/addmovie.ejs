@@ -1,180 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Movie | MovieHub</title>
-
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body {
+            background: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: #0f0f0f;
+            -webkit-font-smoothing: antialiased;
+        }
 
+        .wrapper {
+            max-width: 680px;
+            margin: auto;
+        }
+
+        .page-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #0f0f0f;
+            letter-spacing: -0.3px;
+        }
+
+        .page-desc {
+            font-size: 14px;
+            color: #606060;
+            margin-top: 2px;
+        }
+
+        /* Clean Minimal Form Elements */
+        .form-group-custom {
+            margin-bottom: 20px;
+        }
+
+        .form-label-custom {
+            font-size: 12px;
+            font-weight: 500;
+            color: #606060;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .form-control-custom {
+            width: 100%;
+            font-size: 14px;
+            padding: 10px 12px;
+            background: #ffffff;
+            border: 1px solid #d3d3d3;
+            border-radius: 6px;
+            color: #0f0f0f;
+            transition: border-color 0.15s ease;
+        }
+
+        .form-control-custom:focus {
+            outline: none;
+            border-color: #0f0f0f;
+            box-shadow: none;
+        }
+
+        select.form-control-custom {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23606060' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 12px;
+            padding-right: 36px;
+        }
+
+        textarea.form-control-custom {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* Primary System Button */
+        .btn-platform {
+            font-size: 13px;
+            font-weight: 500;
+            background: #0f0f0f;
+            color: #ffffff;
+            border-radius: 20px;
+            padding: 10px 24px;
+            border: none;
+            transition: background 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-platform:hover {
+            background: #272727;
+            color: #ffffff;
+        }
+
+        /* Coordinated Status Alerts */
+        .alert-custom-error {
+            background-color: #fdf2f2;
+            border: 1px solid #fde8e8;
+            color: #9b1c1c;
+            font-size: 13px;
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 24px;
+        }
+    </style>
 </head>
-<body class="bg-light">
+
+<body>
 
     <%- include("partials/navbar") %>
 
-    <div class="container my-5">
-
-        <div class="row justify-content-center">
-
-            <div class="col-lg-8">
-
-                <div class="card shadow-lg border-0 rounded-4">
-
-                    <div class="card-header bg-warning text-dark text-center py-3 rounded-top-4">
-                        <h2 class="fw-bold mb-0">🎬 Add New Movie</h2>
-                    </div>
-
-                    <div class="card-body p-5">
-
-                        <% if(typeof error !== "undefined"){ %>
-
-                            <div class="alert alert-danger">
-                                <%= error %>
-                                
-                            </div>
-
-                        <% } %>
-
-                        <form action="/movies/add" method="POST" enctype="multipart/form-data">
-
-                            <div class="mb-4">
-                                <label class="form-label fw-semibold">Movie Title</label>
-                                <input
-                                    type="text"
-                                    class="form-control form-control-lg"
-                                    name="title"
-                                    placeholder="Enter movie title"
-                                    required>
-                            </div>
-
-                            <div class="mb-4">
-                                <label class="form-label fw-semibold">Description</label>
-
-                                <textarea
-                                    class="form-control"
-                                    rows="5"
-                                    name="description"
-                                    placeholder="Write movie description..."
-                                    required></textarea>
-
-                            </div>
-
-                            <div class="row">
-
-                                <div class="col-md-6 mb-4">
-
-                                    <label class="form-label fw-semibold">
-                                        Genre
-                                    </label>
-
-                                    <select
-                                        class="form-select"
-                                        name="genre"
-                                        required>
-
-                                        <option value="">Choose Genre</option>
-                                        <option>Action</option>
-                                        <option>Adventure</option>
-                                        <option>Comedy</option>
-                                        <option>Drama</option>
-                                        <option>Fantasy</option>
-                                        <option>Horror</option>
-                                        <option>Romance</option>
-                                        <option>Sci-Fi</option>
-                                        <option>Thriller</option>
-                                        <option>Animation</option>
-
-                                    </select>
-
-                                </div>
-
-                                <div class="col-md-6 mb-4">
-
-                                    <label class="form-label fw-semibold">
-                                        Duration (Minutes)
-                                    </label>
-
-                                    <input
-                                        type="number"
-                                        class="form-control"
-                                        name="duration"
-                                        placeholder="e.g. 165"
-                                        required>
-
-                                </div>
-
-                            </div>
-
-                            <div class="row">
-
-                                <div class="col-md-6 mb-4">
-
-                                    <label class="form-label fw-semibold">
-                                        Language
-                                    </label>
-
-                                    <input
-                                        type="text"
-                                        class="form-control"
-                                        name="language"
-                                        placeholder="Hindi / English"
-                                        required>
-
-                                </div>
-
-                                <div class="col-md-6 mb-4">
-
-                                    <label class="form-label fw-semibold">
-                                        Release Date
-                                    </label>
-
-                                    <input
-                                        type="date"
-                                        class="form-control"
-                                        name="releasedate"
-                                        required>
-
-                                </div>
-
-                            </div>
-
-                        <div class="mb-4">
-                      <label class="form-label fw-semibold">Movie Poster</label>
-
-                          <input
-                        type="file"
-                       class="form-control"
-                      name="posterurl"
-                       accept="image/*"
-                          required>
-                            </div>
-
-                            <div class="d-grid">
-
-                                <button type="submit"
-                                    class="btn btn-warning btn-lg fw-bold">
-
-                                    ➕ Add Movie
-
-                                </button>
-
-                            </div>
-
-                        </form>
-
-                    </div>
-
-                </div>
-
+    <div class="container py-5">
+        <div class="wrapper">
+            
+            <!-- Context Header Section -->
+            <div class="mb-4 pb-3 border-bottom">
+                <h1 class="page-title">Add New Entry</h1>
+                <p class="page-desc">Add a new entry (Movie) into database </p>
             </div>
 
-        </div>
+            <% if(typeof error !== "undefined"){ %>
+                <div class="alert alert-custom-error d-flex align-items-center" role="alert">
+                    <svg class="flex-shrink-0 me-2" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                        <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+                    </svg>
+                    <span><%= error %></span>
+                </div>
+            <% } %>
 
+            <!-- Entry Submission Module -->
+            <form action="/movies/add" method="POST" enctype="multipart/form-data">
+                
+                <div class="form-group-custom">
+                    <label class="form-label-custom">Movie Title</label>
+                    <input type="text" class="form-control-custom" name="title" placeholder="e.g. Inception" required>
+                </div>
+
+                <div class="form-group-custom">
+                    <label class="form-label-custom">Description</label>
+                    <textarea class="form-control-custom" name="description" placeholder="Provide complete summary logs..." required></textarea>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md-6 form-group-custom">
+                        <label class="form-label-custom">Genre </label>
+                        <select class="form-control-custom" name="genre" required>
+                            <option value="">Select criteria...</option>
+                            <option>Action</option>
+                            <option>Adventure</option>
+                            <option>Comedy</option>
+                            <option>Drama</option>
+                            <option>Fantasy</option>
+                            <option>Horror</option>
+                            <option>Romance</option>
+                            <option>Sci-Fi</option>
+                            <option>Thriller</option>
+                            <option>Animation</option>
+                            <option>Biography</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6 form-group-custom">
+                        <label class="form-label-custom">Duration (Minutes)</label>
+                        <input type="number" class="form-control-custom" name="duration" placeholder="e.g. 148" min="1" required>
+                    </div>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md-6 form-group-custom">
+                        <label class="form-label-custom">Language </label>
+                        <input type="text" class="form-control-custom" name="language" placeholder="e.g. English" required>
+                    </div>
+
+                    <div class="col-md-6 form-group-custom">
+                        <label class="form-label-custom">Release Date </label>
+                        <input type="date" class="form-control-custom" name="releasedate" required>
+                    </div>
+                </div>
+
+                <div class="form-group-custom mb-4">
+                    <label class="form-label-custom">Movie Poster </label>
+                    <input type="file" class="form-control-custom" name="posterurl" accept="image/*" required>
+                </div>
+
+                <div class="pt-2">
+                    <button type="submit" class="btn-platform w-100 py-2">
+                        Add Movie
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
     </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

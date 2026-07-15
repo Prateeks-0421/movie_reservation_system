@@ -2,191 +2,162 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Error | MovieHub</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        html, body {
+            height: 100%;
+        }
 
-<meta charset="UTF-8">
+        body {
+            display: flex;
+            flex-direction: column;
+            background: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: #0f0f0f;
+            -webkit-font-smoothing: antialiased;
+        }
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 0;
+        }
 
-<title>500 | Internal Server Error</title>
+        .error-container {
+            width: 100%;
+            max-width: 440px;
+            margin: auto;
+            text-align: center;
+            padding: 0 16px;
+        }
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
- <link rel="stylesheet" href="/css/style.css">
+        .status-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #0f0f0f;
+            letter-spacing: -0.3px;
+            margin-top: 16px;
+        }
 
-<style>
+        .status-desc {
+            font-size: 14px;
+            color: #606060;
+            margin-top: 6px;
+            line-height: 1.5;
+            margin-bottom: 28px;
+        }
 
-html,
-body{
+        /* Clean notification container */
+        .info-panel {
+            background-color: #fdf2f2;
+            border: 1px solid #fde8e8;
+            border-radius: 6px;
+            padding: 18px;
+            text-align: left;
+            margin-bottom: 32px;
+            font-size: 13px;
+            color: #9b1c1c;
+            line-height: 1.6;
+        }
 
-    height:100%;
+        /* Platform action buttons */
+        .btn-platform {
+            font-size: 13px;
+            font-weight: 500;
+            background: #0f0f0f;
+            color: #ffffff;
+            border-radius: 18px;
+            padding: 8px 20px;
+            border: none;
+            transition: background 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-}
+        .btn-platform:hover {
+            background: #272727;
+            color: #ffffff;
+        }
 
-body{
+        .btn-platform-outline {
+            font-size: 13px;
+            font-weight: 500;
+            color: #0f0f0f;
+            border: 1px solid #d3d3d3;
+            border-radius: 18px;
+            padding: 7px 20px;
+            transition: background 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-    background:#f8f9fb;
+        .btn-platform-outline:hover {
+            background: #f2f2f2;
+            color: #0f0f0f;
+        }
 
-    display:flex;
+        footer {
+            background: #ffffff;
+            border-top: 1px solid #efefef;
+            font-size: 12px;
+        }
 
-    flex-direction:column;
-
-}
-
-main{
-
-    flex:1;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-}
-
-.error-card{
-
-    background:white;
-
-    border:none;
-
-    border-radius:20px;
-
-    box-shadow:0 10px 30px rgba(0,0,0,.08);
-
-    padding:60px;
-
-    max-width:700px;
-
-    text-align:center;
-
-}
-
-.error-code{
-
-    font-size:6.5rem;
-
-    font-weight:700;
-
-    color:#dc3545;
-
-    line-height:1;
-
-}
-
-.error-title{
-
-    font-weight:700;
-
-    color:#212529;
-
-    margin-top:20px;
-
-}
-
-.error-text{
-
-    color:#6c757d;
-
-    font-size:1.05rem;
-
-    margin-top:15px;
-
-    margin-bottom:35px;
-
-}
-
-.btn-home{
-
-    background:#ffc107;
-
-    color:#212529;
-
-    font-weight:600;
-
-    border:none;
-
-    padding:12px 28px;
-
-    border-radius:10px;
-
-}
-
-.btn-home:hover{
-
-    background:#ffca2c;
-
-}
-
-</style>
-
+        .footer-text {
+            color: #606060;
+        }
+    </style>
 </head>
 
 <body>
 
-<%- include("partials/navbar") %>
+    <main>
+        <div class="error-container">
 
-<main>
+            <!-- Error Icon Header -->
+            <div class="mb-2">
+                <svg width="36" height="36" fill="none" stroke="#9b1c1c" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+            </div>
+            
+            <h1 class="status-title">Internal Server Error</h1>
+            <p class="status-desc">The application system encountered an unexpected condition while processing this route.</p>
 
-<div class="error-card">
+            <!-- Text Warning Component -->
+            <div class="info-panel">
+                <strong>System Notice:</strong> This request could not be executed due to a database mismatch or backend validation timeout. Please try refreshing the window or browse alternative listings.
+            </div>
 
-<div class="error-code">
+            <!-- Context Actions -->
+            <div class="d-flex justify-content-center gap-2">
+                <a href="/" class="btn-platform">
+                    Go Home
+                </a>
+                <a href="/movies" class="btn-platform-outline">
+                    Browse Catalog
+                </a>
+            </div>
 
-500
+        </div>
+    </main>
 
-</div>
+    <footer class="py-3 text-center">
+        <div class="container">
+            <span class="footer-text">© 2026 MovieHub</span>
+        </div>
+    </footer>
 
-<h2 class="error-title">
-
-Something Went Wrong
-
-</h2>
-
-<p class="error-text">
-
-An unexpected error occurred while processing your request.
-
-Please try again after some time.
-
-If the problem persists, kindly contact the administrator.
-
-</p>
-
-<div class="d-flex justify-content-center gap-3">
-
-<a
-href="/"
-class="btn btn-home">
-
-Go Home
-
-</a>
-
-<a
-href="/movies"
-class="btn btn-outline-dark">
-
-Browse Movies
-
-</a>
-
-</div>
-
-</div>
-
-</main>
-
-<footer class="text-center py-3 border-top bg-white">
-
-<span class="text-muted">
-
-© 2026 MovieHub. All Rights Reserved.
-
-</span>
-
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

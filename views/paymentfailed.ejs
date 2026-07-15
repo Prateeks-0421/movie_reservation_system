@@ -2,73 +2,131 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction Declined | MovieHub</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body {
+            background: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: #0f0f0f;
+            -webkit-font-smoothing: antialiased;
+        }
 
-<meta charset="UTF-8">
+        .wrapper {
+            max-width: 420px;
+            margin: auto;
+            text-align: center;
+        }
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        .status-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #0f0f0f;
+            letter-spacing: -0.3px;
+            margin-top: 16px;
+        }
 
-<title>Payment Failed</title>
+        .status-desc {
+            font-size: 14px;
+            color: #606060;
+            margin-top: 6px;
+            line-height: 1.5;
+            margin-bottom: 32px;
+        }
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+        /* Clean notification container */
+        .error-panel {
+            background-color: #fdf2f2;
+            border: 1px solid #fde8e8;
+            border-radius: 6px;
+            padding: 20px;
+            text-align: left;
+            margin-bottom: 32px;
+            font-size: 13px;
+            color: #9b1c1c;
+        }
 
+        /* Platform action buttons */
+        .btn-platform {
+            font-size: 13px;
+            font-weight: 500;
+            background: #0f0f0f;
+            color: #ffffff;
+            border-radius: 18px;
+            padding: 8px 20px;
+            border: none;
+            transition: background 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-platform:hover {
+            background: #272727;
+            color: #ffffff;
+        }
+
+        .btn-platform-outline {
+            font-size: 13px;
+            font-weight: 500;
+            color: #0f0f0f;
+            border: 1px solid #d3d3d3;
+            border-radius: 18px;
+            padding: 7px 20px;
+            transition: background 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-platform-outline:hover {
+            background: #f2f2f2;
+            color: #0f0f0f;
+        }
+    </style>
 </head>
 
-<body class="bg-light">
+<body>
 
-<%- include("partials/navbar") %>
+    <%- include("partials/navbar") %>
 
-<div class="container py-5">
+    <div class="container py-5">
+        <div class="wrapper">
 
-<div class="row justify-content-center">
+            <!-- Error Icon Header -->
+            <div class="mb-2">
+                <svg width="36" height="36" fill="none" stroke="#9b1c1c" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+            </div>
+            
+            <h1 class="status-title">Payment Unsuccessful</h1>
+            <p class="status-desc">The gateway was unable to complete the Payment.</p>
 
-<div class="col-lg-6">
+            <!-- Text Warning Component -->
+            <div class="error-panel">
+                <strong>Notice:</strong> Your account status has not changed and no allocations were processed. Please try again after sometimes.
+            </div>
 
-<div class="card shadow border-0">
+            <!-- Context Actions -->
+            <div class="d-flex justify-content-center gap-2">
+                <a href="javascript:history.back()" class="btn-platform">
+                    Retry Booking
+                </a>
+                <a href="/movies" class="btn-platform-outline">
+                    Return to Catalog
+                </a>
+            </div>
 
-<div class="card-body text-center p-5">
+        </div>
+    </div>
 
-<h1 class="display-4 text-danger">
-
-❌
-
-</h1>
-
-<h2 class="fw-bold">
-
-Payment Failed
-
-</h2>
-
-<p class="text-muted mt-3">
-
-Your payment was not completed.
-
-Please try again.
-
-</p>
-
-<div class="mt-4">
-
-<a
-href="/movies"
-class="btn btn-warning btn-lg">
-
-Browse Movies
-
-</a>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
