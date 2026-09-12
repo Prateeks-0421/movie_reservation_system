@@ -112,5 +112,4 @@ const newcount = await client.incr(`deletemovie:${req.ip}`) ;
 } 
 
 
-
 module.exports = { ratelimiterlogin  , ratelimitersignup , ratelimitercreateorder , ratelimiterverifyorder , ratelimiteraddmovie , ratelimiterdeletemovie } ;  
