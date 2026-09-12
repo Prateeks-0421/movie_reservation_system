@@ -30,7 +30,6 @@ app.use(checkauth) ;
 
 app.use(routes) ; 
 
-
 app.get("/" , ( req , res ) => {
 
       res.render("home") ;  
