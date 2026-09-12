@@ -30,6 +30,11 @@ app.use(checkauth) ;
 
 app.use(routes) ; 
 
+app.get("/health", (req, res) => {
+    res.status(200).json({ status: "ok" });
+});
+
+
 app.get("/" , ( req , res ) => {
 
       res.render("home") ;  
@@ -42,9 +47,9 @@ app.use((req, res) => {
 
 });
 
-app.get("/health", (req, res) => {
-    res.status(200).json({ status: "ok" });
-});
+// app.get("/health", (req, res) => {
+//     res.status(200).json({ status: "ok" });
+// });
 
  
 module.exports = app;
