@@ -30,12 +30,18 @@ app.use(checkauth) ;
 
 app.use(routes) ; 
 
+app.get("/test", (req, res) => {
+
+    res.send(`Process ID : ${process.pid}`);
+
+});
 
 app.get("/" , ( req , res ) => {
 
       res.render("home") ;  
 
 }) ; 
+
 
 app.use((req, res) => {
 
